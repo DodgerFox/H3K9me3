@@ -1,0 +1,342 @@
+<template>
+  <main class="main">
+    <Header />
+
+    <section class="section search">
+      <form class="wrap" @submit.prevent="sendData()">
+        <div class="search-block">
+            <div class="search-header">
+                <h4>Histone modifications</h4>
+                <div class="info">
+                    <div class="info__window">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="search-wrap">
+                <div class="checkbox">
+                    <input type="checkbox" id="histone1" v-model="H3K27ac"/>
+                    <label for="histone1">H3K27ac</label>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="histone2" v-model="H3K27me3"/>
+                    <label for="histone2">H3K27me3</label>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="histone3" v-model="H3K36me3"/>
+                    <label for="histone3">H3K36me3</label>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="histone4" v-model="H3K4me1"/>
+                    <label for="histone4">H3K4me1</label>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="histone5" v-model="H3K4me2"/>
+                    <label for="histone5">H3K4me2</label>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="histone6" v-model="H3K4me3"/>
+                    <label for="histone6">H3K4me3</label>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="histone7" v-model="H3K9ac"/>
+                    <label for="histone7">H3K9ac</label>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="histone8" v-model="H3K9me3"/>
+                    <label for="histone8">H3K9me3</label>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="histone9" v-model="H3K79me2"/>
+                    <label for="histone9">H3K79me2</label>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="histone10" v-model="H4K20me1"/>
+                    <label for="histone10">H4K20me1</label>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="histone11" v-model="Methylation"/>
+                    <label for="histone11">Methylation</label>
+                </div>
+            </div>
+        </div>
+        <div class="search-block search-block_middle">
+            <div class="search-header">
+                <h4>lncRNA</h4>
+                <div class="info">
+                    <div class="info__window">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="search-wrap">
+                <div class="search-string">
+                    <!-- <div class="input-search">
+                        <input type="text" id="lncRNA">
+                    </div> -->
+                    <div class="input-add">
+                        <input type="text" id="lncRNA" placeholder="Add one by one" @keydown.enter.prevent="setElement('lncrna')" v-model="lncrnaInput">
+                    </div>
+                    <upload-button
+                        title="Load file"
+                        block
+                        name="gene"
+                        class="button violet"
+                        id="gene"
+                        @file-update="updateFile"
+                    />
+                    <div class="info black">
+                        <div class="info__window">
+                            <p>File should be in txt format, and max 2mb size.</p>
+                        </div>
+                    </div>
+                    <div class="clear" @click="lncrna = []" v-show="lncrna.length > 0">
+                        <p>Очистить</p>
+                    </div>
+                </div>
+                <div class="search-output" v-if="lncrna.length > 0">
+                    <div class="search-output__item" @click="lncrna.splice(index, 1)" v-for="(rna, index) in lncrna" :key="index" :rna="rna">{{ rna }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="search-block search-block_middle">
+            <div class="search-header">
+                <h4>Gene/Gene ID</h4>
+                <div class="info">
+                    <div class="info__window">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="search-wrap">
+                <div class="search-string">
+                    <div class="input-add">
+                        <input type="text" id="Gene" placeholder="Add one by one" @keydown.enter.prevent="setElement('genes')" v-model="genesInput">
+                    </div>
+                    <upload-button
+                        title="Load file"
+                        block
+                        name="gene"
+                        class="button violet"
+                        id="gene"
+                        @file-update="genesFile"
+                    />
+                    <div class="info black">
+                        <div class="info__window">
+                            <p>File should be in txt format, and max 2mb size.</p>
+                        </div>
+                    </div>
+                    <div class="clear" @click="genes = []" v-show="genes.length > 0">
+                        <p>Очистить</p>
+                    </div>
+                </div>
+                <div class="search-output" v-if="genes.length > 0">
+                    <div class="search-output__item" @click="genes.splice(index, 1)" v-for="(rna, index) in genes" :key="index" :rna="rna">{{ rna }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="search-block search-block_middle">
+            <div class="search-header">
+                <h4>Coords</h4>
+                <div class="info">
+                    <div class="info__window">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="search-wrap">
+                <div class="search-string">
+                    <textarea class="textarea" id="coords" cols="30" rows="8" placeholder="Add one by one via tab" v-model="coordsInput"></textarea>
+                </div>
+                <div class="search-string">
+                    <div class="button" v-if="coordsInput" @click="setElement('coords')" >
+                        <p>Add input data</p>
+                    </div>
+                    <upload-button
+                        title="Load file"
+                        block
+                        ripped
+                        name="coords"
+                        class="button violet"
+                        id="coords"
+                        @file-update="coordsFile"
+                    />
+                    <div class="info black">
+                        <div class="info__window">
+                            <p>File should be in txt format, and max 2mb size.</p>
+                        </div>
+                    </div>
+                    <div class="clear" @click="coords = []" v-show="coords.length > 0">
+                        <p>Очистить</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-block search-block_middle">
+            <div class="search-header">
+                <h4>Corr threshold</h4>
+                <div class="info">
+                    <div class="info__window">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="search-wrap">
+                <div class="search-string">
+                    <div class="checkbox">
+                        <input type="checkbox" id="plus" v-model="plus"/>
+                        <label for="plus">+</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" id="minus" v-model="minus"/>
+                        <label for="minus">—</label>
+                    </div>
+                </div>
+                <div class="search-string">
+                    <Slider v-show="plus" name="plus"/>
+                </div>
+                <div class="search-string">
+                    <Slider v-show="minus" name="minus"/>
+                </div>
+            </div>
+        </div>
+        <div class="search-button">
+            <input class="button" type="submit" value="Search by choisen filters" />
+            <p class="search-button__text">finded 6120 picks</p>
+        </div>
+      </form>
+    </section>
+    <Footer />
+  </main>
+</template>
+
+<script>
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import Slider from '@/components/ui/Slider';
+import UploadButton from 'vuetify-upload-button'
+
+export default {
+  name: 'dashboard',
+  components: {
+    Header,
+    Footer,
+    Slider,
+    UploadButton
+  },
+  data() {
+    return {
+      lncrna: [],
+      genes: [],
+      coords: [],
+      mrange: [],
+      prange: [],
+      lncrnaInput: null,
+      genesInput: null,
+      coordsInput: null,
+      plus: true,
+      minus: null,
+      H3K27ac: false,
+      H3K27me3: false,
+      H3K36me3: false,
+      H3K4me1: false,
+      H3K4me2: false,
+      H3K4me3: false,
+      H3K9ac: false,
+      H3K9me3: false,
+      H3K79me2: false,
+      H4K20me1: false,
+      Methylation: false,
+    }
+  },
+  methods: {
+    //   changeGistons(name) {
+          
+    //   },
+    genesFile(file) {
+        const reader = new FileReader()
+        reader.onload = e => {
+            let dataArray = e.target.result.split('\n')
+            dataArray.forEach(element => {
+                this.genes.push(element)
+            });
+            console.log(e);
+        }
+
+        reader.readAsText(file)
+    },
+    updateFile(file) {
+        const reader = new FileReader()
+        reader.onload = e => {
+            let dataArray = e.target.result.split('\n')
+            dataArray.forEach(element => {
+                this.lncrna.push(element)
+            });
+            console.log(e);
+        }
+
+        reader.readAsText(file)
+    },
+    coordsFile(file) {
+        const reader = new FileReader()
+        reader.onload = e => {
+            let strings = e.target.result.split('\n');
+            strings.forEach(element => {
+                this.coords.push(element.split(/\s+/g))
+            })
+            console.log(this.coords);
+        }
+
+        reader.readAsText(file)
+    },
+    setElement (name) {
+        if (name === 'coords') {
+            let strings = this[name + 'Input'].split('\n');
+            strings.forEach(element => {
+                this[name].push(element.split(/\s+/g))
+            })
+            console.log(this[name]);
+        } else {
+            this[name].push(this[name + 'Input'])
+        }
+        this[name + 'Input'] = null
+    },
+    sendData () {
+        let searchData = {
+            histones: [
+                this.H3K27ac,
+                this.H3K27me3,
+                this.H3K36me3,
+                this.H3K4me1,
+                this.H3K4me2,
+                this.H3K4me3,
+                this.H3K9ac,
+                this.H3K9me3,
+                this.H3K79me2,
+                this.H4K20me1,
+                this.Methylation,
+            ],
+            lncrna: this.lncrna,
+            genes: this.genes,
+            coords: this.coords,
+            ranges: this.getRanges
+        };
+        console.log(searchData);
+    }
+  },
+  computed: {
+    getRanges () {
+      return this.$store.getters.getRanges
+    }
+  },
+  async mounted () {
+    this.articles = await this.$store.dispatch('getDashboard')
+  }
+}
+
+</script>

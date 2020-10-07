@@ -1,0 +1,23 @@
+.welcome
+    width 100%
+    height calc(100vh - 96px)
+
+    .wrap
+        height 100%
+        display flex
+        align-items center
+    
+    &-image
+        // min-width 676px
+        width 60%
+        +to-width(1200px)
+            display none
+
+    &-content
+        padding-left 110px
+        +to-width(1200px)
+            padding-left 0
+            display flex
+            flex-direction column
+            align-items center
+            text-align center
