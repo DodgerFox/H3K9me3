@@ -3,52 +3,67 @@ import { Bar } from 'vue-chartjs'
 export default {
     name: 'ChartPeaks',
     props: {
-        title: {
-            type: String,
+        data: {
+            type: Object,
             required: true
-        },
-        // data: {
-        //     type: Array,
-        //     required: true
-        // }
+        }
     },
     extends: Bar,
     components: {
         Bar
     },
     data: () => ({
-        chartdata: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
         options: {
+            legend: {
+                display: false
+            },
             responsive: true,
             maintainAspectRatio: false
         }
     }),
 
     mounted () {
-        this.renderChart(this.chartdata, this.options)
+        let chartdata = {
+            labels: [],
+            datasets: [{
+                label: '# of Votes',
+                data: [],
+                minBarLength: 0,
+                backgroundColor: [
+                    'rgba(84, 71, 140, 1)',
+                    'rgba(44, 105, 154, 1)',
+                    'rgba(4, 139, 168, 1)',
+                    'rgba(13, 179, 158, 1)',
+                    'rgba(22, 219, 147, 1)',
+                    'rgba(131, 227, 119, 1)',
+                    '#83e377',
+                    '#b9e769',
+                    '#efea5a',
+                    '#f1c453',
+                    '#f29e4c',
+                    '#f26d4c',
+                    '#f24c4c',
+                    'rgba(242, 76, 100, 1)',
+                    'rgba(242, 76, 115, 1)',
+                    'rgba(242, 76, 130, 1)',
+                    'rgba(242, 76, 145, 1)',
+                    'rgba(242, 76, 160, 1)',
+                    'rgba(242, 76, 175, 1)',
+                    'rgba(222, 76, 190, 1)',
+                    'rgba(182, 76, 230, 1)',
+                    'rgba(120, 76, 242, 1)',
+                    'rgba(70, 89, 202, 1)',
+                    'rgba(50, 89, 160, 1)',
+                ]
+            }]
+        };
+        let data = this.data.elements;
+        console.log(data, 'chartв');
+        data.forEach(element => {
+            chartdata.labels.push(element.label)
+            chartdata.datasets[0].data.push([0, element.value])
+        });
+        this.renderChart(chartdata, this.options)
     }
 }
 </script>

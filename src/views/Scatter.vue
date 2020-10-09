@@ -6,7 +6,7 @@
                 <h2 class="section-title">Histone modification: {{$route.params.id}}</h2>
                 <div class="block">
                   <div class="block-wrap" v-if="modification.chart">
-                      <h4>{{modification.chart.title}}</h4>
+                      <h4>Chart of peaks distribution</h4>
                       <ChartPeaks :data="modification.chart" />
                   </div>
                   <div class="block-none" v-else>

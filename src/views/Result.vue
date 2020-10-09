@@ -3,8 +3,8 @@
         <Header />
         <section class="result">
             <div class="wrap">
-                <h4>Search result</h4>
-                <Table :max="10" v-if="getTable" :data="getTable" />
+                <h4>{{ results.title }}</h4>
+                <Table :max="10" v-if="results" :data="results.table" />
             </div>
         </section>
         <Footer />
@@ -14,6 +14,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Table from '@/components/Table';
+import result from '@/data/result.json'
 
 export default {
   name: 'result',
@@ -24,17 +25,18 @@ export default {
   },
   data() {
     return {
-      articles: [],
-      user: {}
+      results: null
     }
   },
   computed: {
     getTable () {
-      return this.$store.getters.getDashboardTable
+      return this.$store.getters.getResults
     }
   },
   async mounted () {
-    this.articles = await this.$store.dispatch('getDashboard')
+    this.results = await result
+    // this.results = await this.$store.getters.getResults
+    console.log(this.results);
   }
 }
 

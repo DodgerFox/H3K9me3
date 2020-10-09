@@ -33,9 +33,24 @@ const routes = [
     component: () => import('@/views/Result')
   },
   {
-    path: '/histone/:id',
+    path: '/info/histone/:id',
     name: 'histone',
     component: () => import('@/views/Histone')
+  },
+  {
+    path: '/info/lncrna/:id',
+    name: 'histone',
+    component: () => import('@/views/LncRNA')
+  },
+  {
+    path: '/info/gene/:id',
+    name: 'histone',
+    component: () => import('@/views/Gene')
+  },
+  {
+    path: '/info/scatter/:id',
+    name: 'histone',
+    component: () => import('@/views/Scatter')
   },
   // {
   //   path: '/lenta',
@@ -55,14 +70,15 @@ const routes = [
   //   meta: {auth: true},
   //   component: Events
   // },
-  // { 
-  //   path: '/404', 
-  //   name: '404', 
-  //   component: () => import('@/views/Wrong'), 
-  // }, { 
-  //   path: '*', 
-  //   redirect: '/404' 
-  // }
+  { 
+    path: '/404', 
+    name: '404', 
+    component: () => import('@/views/Wrong'), 
+  }, 
+  { 
+    path: '*', 
+    redirect: '/404' 
+  }
 ]
 
 const router = new VueRouter({

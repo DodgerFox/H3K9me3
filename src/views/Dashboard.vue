@@ -48,7 +48,7 @@
         <h2 class="section-title">Research results</h2>
         <p class="section-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
 
-        <Table :max="10" v-if="getTable" :data="getTable" />
+        <Table :max="10" v-if="research" :data="research.table" />
       </div>
     </section>
     <Footer />
@@ -59,6 +59,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Table from '@/components/Table';
+import result from '@/data/result.json'
 
 export default {
   name: 'dashboard',
@@ -69,8 +70,7 @@ export default {
   },
   data() {
     return {
-      articles: [],
-      user: {}
+      research: []
     }
   },
   computed: {
@@ -79,7 +79,8 @@ export default {
     }
   },
   async mounted () {
-    this.articles = await this.$store.dispatch('getDashboard')
+    this.research = await result
+    // this.research = await this.$store.dispatch('getDashboard')
   }
 }
 

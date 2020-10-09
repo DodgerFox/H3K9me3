@@ -3,16 +3,13 @@
         <table class="table">
           <tbody>
             <tr>
-              <th v-for="(header, name, index) in data" :key="index" >{{name}}</th>
+              <th v-for="(header, name, index) in data.data[0]" :key="index" >{{ name }}</th>
             </tr>
-            <tr>
-              <td>
-                <router-link class="table-link" to="/search">H3K27ac</router-link>
+            <tr v-for="(item, index) in data.data" :key="index">
+              <td v-for="(td, name, index) in item" :key="index">
+                <router-link v-if="name === 'Histone Modification'" class="table-link" :to="{path: '/info/histone/' + td}">{{ td }}</router-link>
+                <p v-else>{{ td }}</p>
               </td>
-              <td>100</td>
-              <td>134</td>
-              <td>172</td>
-              <td>51</td>
             </tr>
           </tbody>
         </table>
@@ -46,13 +43,14 @@ export default {
       let length;
       for (const key in this.data) {
           const element = this.data[key];
+          console.log(key);
           length = element.length;
       }
       return length
     }
   },
   mounted(){
-    
+    console.log(this.data);
   }
 }
 </script>

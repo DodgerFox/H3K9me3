@@ -16,47 +16,47 @@
             </div>
             <div class="search-wrap">
                 <div class="checkbox">
-                    <input type="checkbox" id="histone1" v-model="H3K27ac"/>
+                    <input type="checkbox" id="histone1" v-model="histones.H3K27ac"/>
                     <label for="histone1">H3K27ac</label>
                 </div>
                 <div class="checkbox">
-                    <input type="checkbox" id="histone2" v-model="H3K27me3"/>
+                    <input type="checkbox" id="histone2" v-model="histones.H3K27me3"/>
                     <label for="histone2">H3K27me3</label>
                 </div>
                 <div class="checkbox">
-                    <input type="checkbox" id="histone3" v-model="H3K36me3"/>
+                    <input type="checkbox" id="histone3" v-model="histones.H3K36me3"/>
                     <label for="histone3">H3K36me3</label>
                 </div>
                 <div class="checkbox">
-                    <input type="checkbox" id="histone4" v-model="H3K4me1"/>
+                    <input type="checkbox" id="histone4" v-model="histones.H3K4me1"/>
                     <label for="histone4">H3K4me1</label>
                 </div>
                 <div class="checkbox">
-                    <input type="checkbox" id="histone5" v-model="H3K4me2"/>
+                    <input type="checkbox" id="histone5" v-model="histones.H3K4me2"/>
                     <label for="histone5">H3K4me2</label>
                 </div>
                 <div class="checkbox">
-                    <input type="checkbox" id="histone6" v-model="H3K4me3"/>
+                    <input type="checkbox" id="histone6" v-model="histones.H3K4me3"/>
                     <label for="histone6">H3K4me3</label>
                 </div>
                 <div class="checkbox">
-                    <input type="checkbox" id="histone7" v-model="H3K9ac"/>
+                    <input type="checkbox" id="histone7" v-model="histones.H3K9ac"/>
                     <label for="histone7">H3K9ac</label>
                 </div>
                 <div class="checkbox">
-                    <input type="checkbox" id="histone8" v-model="H3K9me3"/>
+                    <input type="checkbox" id="histone8" v-model="histones.H3K9me3"/>
                     <label for="histone8">H3K9me3</label>
                 </div>
                 <div class="checkbox">
-                    <input type="checkbox" id="histone9" v-model="H3K79me2"/>
+                    <input type="checkbox" id="histone9" v-model="histones.H3K79me2"/>
                     <label for="histone9">H3K79me2</label>
                 </div>
                 <div class="checkbox">
-                    <input type="checkbox" id="histone10" v-model="H4K20me1"/>
+                    <input type="checkbox" id="histone10" v-model="histones.H4K20me1"/>
                     <label for="histone10">H4K20me1</label>
                 </div>
                 <div class="checkbox">
-                    <input type="checkbox" id="histone11" v-model="Methylation"/>
+                    <input type="checkbox" id="histone11" v-model="histones.Methylation"/>
                     <label for="histone11">Methylation</label>
                 </div>
             </div>
@@ -99,6 +99,9 @@
                 <div class="search-output" v-if="lncrna.length > 0">
                     <div class="search-output__item" @click="lncrna.splice(index, 1)" v-for="(rna, index) in lncrna" :key="index" :rna="rna">{{ rna }}</div>
                 </div>
+                <div class="button button_show" v-if="lncrna.length > 2" @click="showAll('lncrna')">
+                    <p>Show all {{ lncrna.lenght }}</p>
+                </div>
             </div>
         </div>
         <div class="search-block search-block_middle">
@@ -136,6 +139,9 @@
                 <div class="search-output" v-if="genes.length > 0">
                     <div class="search-output__item" @click="genes.splice(index, 1)" v-for="(rna, index) in genes" :key="index" :rna="rna">{{ rna }}</div>
                 </div>
+                <div class="button button_show" v-if="genes.length > 2" @click="showAll('genes')">
+                    <p>Show all {{ genes.lenght }}</p>
+                </div>
             </div>
         </div>
         <div class="search-block search-block_middle">
@@ -155,6 +161,9 @@
                 <div class="search-string">
                     <div class="button" v-if="coordsInput" @click="setElement('coords')" >
                         <p>Add input data</p>
+                    </div>
+                    <div class="button" v-if="coords.length > 2" @click="showAll('coords')">
+                        <p>Show all {{ coords.lenght }}</p>
                     </div>
                     <upload-button
                         title="Load file"
@@ -207,9 +216,28 @@
         </div>
         <div class="search-button">
             <input class="button" type="submit" value="Search by choisen filters" />
-            <p class="search-button__text">finded 6120 picks</p>
+            <!-- <p class="search-button__text">finded 6120 picks</p> -->
         </div>
       </form>
+    </section>
+    <section class="modal" v-if="modal.open">
+        <div class="modal-close" @click="modal.open = false">
+            <img src="@/assets/images/icon_close.svg" alt="">
+        </div>
+        <div class="wrap">
+            <div class="modal-body">
+                <h2 class="modal-title">All choisen {{ modal.title }}</h2>
+                <div class="modal-list" v-if="modal.data && modal.title === 'lncrna'">
+                    <div class="search-output__item" @click="lncrna.splice(index, 1)" v-for="(rna, index) in modal.data" :key="index" :rna="rna">{{ rna }}</div>
+                </div>
+                <div class="modal-list" v-if="modal.data && modal.title === 'genes'">
+                    <div class="search-output__item" @click="genes.splice(index, 1)" v-for="(rna, index) in modal.data" :key="index" :rna="rna">{{ rna }}</div>
+                </div>
+                <div class="modal-list" v-if="modal.data && modal.title === 'coords'">
+                    <div class="search-output__item" @click="coords.splice(index, 1)" v-for="(rna, index) in modal.data" :key="index" :rna="rna">{{ rna }}</div>
+                </div>
+            </div>
+        </div>
     </section>
     <Footer />
   </main>
@@ -231,33 +259,42 @@ export default {
   },
   data() {
     return {
-      lncrna: [],
-      genes: [],
-      coords: [],
-      mrange: [],
-      prange: [],
-      lncrnaInput: null,
-      genesInput: null,
-      coordsInput: null,
-      plus: true,
-      minus: null,
-      H3K27ac: false,
-      H3K27me3: false,
-      H3K36me3: false,
-      H3K4me1: false,
-      H3K4me2: false,
-      H3K4me3: false,
-      H3K9ac: false,
-      H3K9me3: false,
-      H3K79me2: false,
-      H4K20me1: false,
-      Methylation: false,
-    }
+        modal: {
+            open: false,
+            data: null
+        },
+        lncrna: [],
+        genes: [],
+        coords: [],
+        mrange: [],
+        prange: [],
+        lncrnaInput: null,
+        genesInput: null,
+        coordsInput: null,
+        plus: true,
+        minus: null,
+        histones: {
+            H3K27ac: false,
+            H3K27me3: false,
+            H3K36me3: false,
+            H3K4me1: false,
+            H3K4me2: false,
+            H3K4me3: false,
+            H3K9ac: false,
+            H3K9me3: false,
+            H3K79me2: false,
+            H4K20me1: false,
+            Methylation: false,
+        }
+        }
   },
   methods: {
-    //   changeGistons(name) {
-          
-    //   },
+    showAll (name) {
+        this.modal.open = true
+        this.modal.data = this[name]
+        this.modal.title = name;
+        console.log(this.modal);
+    },
     genesFile(file) {
         const reader = new FileReader()
         reader.onload = e => {
@@ -306,27 +343,23 @@ export default {
         }
         this[name + 'Input'] = null
     },
-    sendData () {
+    async sendData () {
+        let histones = [];
+        for (const key in this.histones) {
+            const element = this.histones[key];
+            element ? histones.push(key) : ''
+        }
         let searchData = {
-            histones: [
-                this.H3K27ac,
-                this.H3K27me3,
-                this.H3K36me3,
-                this.H3K4me1,
-                this.H3K4me2,
-                this.H3K4me3,
-                this.H3K9ac,
-                this.H3K9me3,
-                this.H3K79me2,
-                this.H4K20me1,
-                this.Methylation,
-            ],
+            histones: histones,
             lncrna: this.lncrna,
             genes: this.genes,
             coords: this.coords,
             ranges: this.getRanges
         };
         console.log(searchData);
+        let result = await this.$store.dispatch('search', [searchData, 0, 10])
+        console.log(result);
+        result ? this.$router.push('/result') : ''
     }
   },
   computed: {

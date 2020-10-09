@@ -13,6 +13,9 @@
         font-size 12px
         line-height 16px
         color black
+        &:hover
+            td
+                background-color #f4f4f4
         &:last-child
             td
                 border-bottom none
@@ -23,6 +26,7 @@
         border-bottom 1px solid #e9e9f0
         border-right 1px solid #e9e9f0
         text-align left
+        t()
         &:last-child
             border-right: 0
     td
@@ -49,6 +53,7 @@
         align-items center
         border-radius 20px
         background white
+        filter $shadow
 
         &__text
             font-size 12px
