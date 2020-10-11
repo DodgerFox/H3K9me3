@@ -14,6 +14,7 @@
                   </div>
                 </div>
                 <Table :max="10" v-if="modification.table" :data="modification.table" />
+                <!-- <Table :max="10" v-if="getData.table" :data="getData.table" /> -->
             </div>
         </section>
         <Footer />
@@ -39,10 +40,15 @@ export default {
       modification: null
     }
   },
+  computed: {
+    getData () {
+      return this.$store.getters.getHistone
+    }
+  },
   async mounted () {
     this.modification = histone
     console.log(this.modification);
-    // this.modification = await this.$store.dispatch('fetchHistone', this.$route.params.id)
+    await this.$store.dispatch('fetchHistone', [this.$route.params.id, 1, 10])
     // console.log(this.$route.params.id, 'route');
   }
 }

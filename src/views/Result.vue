@@ -3,7 +3,11 @@
         <Header />
         <section class="result">
             <div class="wrap">
-                <h4>{{ results.title }}</h4>
+                <!-- <h4 v-if="getTable">{{ getTable.title }}</h4> -->
+                <!-- <h4 v-if="!getTable">Nothing found, please try again</h4> -->
+                <h4 v-if="results">{{ results.title }}</h4>
+                <h4 v-if="!results">Nothing found, please try again</h4>
+                <!-- <Table :max="10" v-if="getTable" :data="getTable.table" /> -->
                 <Table :max="10" v-if="results" :data="results.table" />
             </div>
         </section>
@@ -30,6 +34,7 @@ export default {
   },
   computed: {
     getTable () {
+      console.log(this.$store.getters.getResults);
       return this.$store.getters.getResults
     }
   },

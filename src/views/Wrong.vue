@@ -3,7 +3,7 @@
         <Header />
         <section class="wrong">
             <div class="wrap">
-                <p class="wrong__text">Здесь ничего нет</p>
+                <p class="wrong__text">There's nothing here ¯\_(ツ)_/¯</p>
             </div>
         </section>
         <Footer />

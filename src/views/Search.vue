@@ -239,6 +239,9 @@
             </div>
         </div>
     </section>
+    <div class="notification" v-if="warning">
+        <p class="notification-title">Choose modification</p>
+    </div>
     <Footer />
   </main>
 </template>
@@ -263,6 +266,7 @@ export default {
             open: false,
             data: null
         },
+        warning: false,
         lncrna: [],
         genes: [],
         coords: [],
@@ -345,21 +349,40 @@ export default {
     },
     async sendData () {
         let histones = [];
+        let access = false;
+        if (this.coords && this.coords.length > 0) {
+            this.coords = this.coords.map(el => {
+                console.log(el.toString());
+                return `[${el.toString()}]`
+            })
+        }
         for (const key in this.histones) {
             const element = this.histones[key];
-            element ? histones.push(key) : ''
+            console.log(element);
+            element ? (
+                histones.push(key),
+                access = true
+            ) : '';
         }
-        let searchData = {
-            histones: histones,
-            lncrna: this.lncrna,
-            genes: this.genes,
-            coords: this.coords,
-            ranges: this.getRanges
-        };
-        console.log(searchData);
-        let result = await this.$store.dispatch('search', [searchData, 0, 10])
-        console.log(result);
-        result ? this.$router.push('/result') : ''
+        console.log(access);
+        if (access) {
+
+            let searchData = {
+                hm: histones,
+                lncrna: this.lncrna,
+                genes: this.genes,
+                coords: this.coords,
+                thresholds_choisen: [this.plus, this.minus]
+            };
+            console.log(searchData);
+            await this.$store.dispatch('setSearch', searchData)
+            let result = await this.$store.dispatch('search', [searchData, 0, 10])
+            console.log(result);
+            result ? this.$router.push('/result') : ''
+        } else {
+            this.warning = !this.warning
+            setTimeout(() => {this.warning = !this.warning}, 2000)
+        }
     }
   },
   computed: {

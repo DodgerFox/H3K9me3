@@ -4,8 +4,8 @@ export default {
       result: null,
       activeFilters: [],
       ranges: {
-        plus: null,
-        minus: null
+        plus: [0.10, 0.80],
+        minus: [0.10, 0.80]
       },
       searchData: null
     },
@@ -22,12 +22,15 @@ export default {
       }
     },
     actions: {
-      async search({commit}, [searchData, page, max]) {
+      async search({commit, state}, [searchData, page, max]) {
         let result;
-        let query = `http://83.149.211.146:22180/lncrna/api/v1/search/results?page=${page}&page_count=${max}&hm=[${searchData.histones}]&gene=[${searchData.genes}]&coords=[${searchData.coords}&corr_plus_threshold=[${searchData.ranges.plus}]&corr_minus_threshold=[${searchData.ranges.minus}]]`;
-        // for (const iterator of searchData) {
-        //   searchData
-        // }
+        console.log(searchData, 'sd');
+        let query = `http://83.149.211.146:22180/lncrna/api/v1/search/results?page=${page}&page_count=${max}`;
+        for (const iterator in searchData) {
+          let str = searchData[iterator] && searchData[iterator].length > 0 ? `&${iterator}=[${searchData[iterator]}]` : ''; 
+          query = query + str;
+        }
+        query = query + '&tresholds=' + `[[${state.ranges.plus}],[${state.ranges.munis}]]`;
         console.log(query);
         try {
           await axios
