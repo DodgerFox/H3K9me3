@@ -6,12 +6,6 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'forum',
-  //   component: Forum,
-  //   meta: {auth: true}
-  // },
   {
     path: '/',
     name: 'dashboard',
@@ -52,24 +46,6 @@ const routes = [
     name: 'histone',
     component: () => import('@/views/Scatter')
   },
-  // {
-  //   path: '/lenta',
-  //   name: 'lenta',
-  //   meta: {auth: true},
-  //   component: Forum
-  // },
-  // {
-  //   path: '/lenta/:hash',
-  //   name: 'article',
-  //   meta: {auth: true},
-  //   component: Forum
-  // },
-  // {
-  //   path: '/events/:hash',
-  //   name: 'event',
-  //   meta: {auth: true},
-  //   component: Events
-  // },
   { 
     path: '/404', 
     name: '404', 
@@ -87,24 +63,5 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach(async (to, from, next) => {
-  // let resp = null;
-  // await axios.get("http://localhost:3000/api/login/session")
-  //     .then((response) => {
-  //         console.log(response, 'res!!');
-  //         resp = response;
-  //     })    
-  //     .catch((errors) => {    
-  //         console.log("Cannot log in", errors)    
-  //     })
-  // const requireAuth = to.matched.some(forum => forum.meta.auth);
-  
-
-  // if (requireAuth && !currentUser){
-  //   next('/login')
-  // } else {
-    next()
-  // }
-})
 
 export default router

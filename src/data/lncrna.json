@@ -101,6 +101,108 @@
         ]
   
       },
+      "barplot": {
+        "labels": ["Chr1", "Chr2", "Chr3", "Chr4", "Chr5", "Chr6"],
+        "elements": [
+            [
+                {
+                    "label": "Label",
+                    "x": 20,
+                    "y": 1
+                },
+                {
+                    "title": "Label",
+                    "x": 10,
+                    "y": 2
+                },
+                {
+                    "label": "Label",
+                    "x": 30,
+                    "y": -1
+                },
+                {
+                    "label": "Label",
+                    "x": 40,
+                    "y": -2
+                },
+                {
+                    "label": "Label",
+                    "x": 40,
+                    "y": -4
+                },
+                {
+                    "label": "Label",
+                    "x": 40,
+                    "y": -5
+                }
+            ],
+            [
+                {
+                    "label": "Label",
+                    "x": 20,
+                    "y": 2
+                },
+                {
+                    "title": "Label",
+                    "x": 10,
+                    "y": 3
+                },
+                {
+                    "label": "Label",
+                    "x": 30,
+                    "y": -2
+                },
+                {
+                    "label": "Label",
+                    "x": 40,
+                    "y": -3
+                },
+                {
+                    "label": "Label",
+                    "x": 40,
+                    "y": -5
+                },
+                {
+                    "label": "Label",
+                    "x": 40,
+                    "y": -5
+                }
+            ],
+            [
+                {
+                    "label": "Label",
+                    "x": 20,
+                    "y": 5
+                },
+                {
+                    "title": "Label",
+                    "x": 10,
+                    "y": 7
+                },
+                {
+                    "label": "Label",
+                    "x": 30,
+                    "y": -3
+                },
+                {
+                    "label": "Label",
+                    "x": 40,
+                    "y": -5
+                },
+                {
+                    "label": "Label",
+                    "x": 40,
+                    "y": -8
+                },
+                {
+                    "label": "Label",
+                    "x": 40,
+                    "y": -5
+                }
+            ]
+        ]
+  
+      },
       "table": {
         "all_counts": 24,
         "data": [
