@@ -33,17 +33,19 @@ export default {
         query = query + '&tresholds=' + `[[${state.ranges.plus}],[${state.ranges.munis}]]`;
         console.log(query);
         try {
+          console.log('start');
           await axios
           .post(query)
           .then(response => {
-            result = response.data.response
+            console.log(response,'res');
+            result = response.data
             commit('setResults', result)
           })
           .catch(error => {
-            console.log(error);
+            console.log(error, 'er');
           })
         } catch (error) {
-          console.error(error);
+          console.error(error, 'er2');
         }
         return result
       },

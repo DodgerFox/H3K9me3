@@ -24,7 +24,7 @@ export default {
           await axios
           .post(`http://83.149.211.146:22180/lncrna/api/v1/info/modification?hm=${histone}&page=${page}&page_count=${max}`)
           .then(response => {
-            result = response.data.response
+            result = response.data
             commit('setHistone', result)
           })
           .catch(error => {
@@ -41,7 +41,7 @@ export default {
           await axios
           .post(`http://83.149.211.146:22180/lncrna/api/v1/info/gene?gene=${gene}&page=${page}&page_count=${max}`)
           .then(response => {
-            result = response.data.response
+            result = response.data
             commit('setGene', result)
           })
           .catch(error => {
@@ -58,7 +58,7 @@ export default {
           await axios
           .post(`http://83.149.211.146:22180/lncrna/api/v1/info/lncrna?lncrna=${lncrna}&page=${page}&page_count=${max}`)
           .then(response => {
-            result = response.data.response
+            result = response.data
             commit('setLncrna', result)
           })
           .catch(error => {
