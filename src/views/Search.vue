@@ -156,7 +156,7 @@
             </div>
             <div class="search-wrap">
                 <div class="search-string">
-                    <textarea class="textarea" id="coords" cols="30" rows="8" placeholder="Add one by one via tab" v-model="coordsInput"></textarea>
+                    <textarea class="textarea" id="coords" cols="30" rows="8" placeholder="Add one by one via tab" v-model="coordsInput" @keydown.tab.prevent="setTab()"></textarea>
                 </div>
                 <div class="search-string">
                     <div class="button" v-if="coordsInput" @click="setElement('coords')" >
@@ -239,9 +239,7 @@
             </div>
         </div>
     </section>
-    <div class="notification" v-if="warning">
-        <p class="notification-title">Choose modification</p>
-    </div>
+    <Notification v-if="warning.open" :title="warning.title"/>
     <Footer />
   </main>
 </template>
@@ -250,6 +248,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Slider from '@/components/ui/Slider';
+import Notification from '@/components/Notification';
 import UploadButton from 'vuetify-upload-button'
 
 export default {
@@ -258,6 +257,7 @@ export default {
     Header,
     Footer,
     Slider,
+    Notification,
     UploadButton
   },
   data() {
@@ -266,7 +266,10 @@ export default {
             open: false,
             data: null
         },
-        warning: false,
+        warning: {
+            open: false,
+            title: 'Choose modification'
+        },
         lncrna: [],
         genes: [],
         coords: [],
@@ -293,6 +296,10 @@ export default {
         }
   },
   methods: {
+    setTab (val) {
+        console.log(val);
+        return 'ad'
+    },
     showAll (name) {
         this.modal.open = true
         this.modal.data = this[name]
@@ -364,7 +371,6 @@ export default {
                 access = true
             ) : '';
         }
-        console.log(access);
         if (access) {
 
             let searchData = {
@@ -378,11 +384,15 @@ export default {
             await this.$store.dispatch('setSearch', searchData)
             let result = await this.$store.dispatch('search', [searchData, 0, 10])
             console.log(result);
-            result ? this.$router.push('/result') : ''
+            result ? this.$router.push('/result') : this.showWarning('Something went wrong');
         } else {
-            this.warning = !this.warning
-            setTimeout(() => {this.warning = !this.warning}, 2000)
+            this.showWarning()
         }
+    },
+    showWarning(title) {
+        title ? this.warning.title = title : '';
+        this.warning.open = !this.warning.open
+        setTimeout(() => {this.warning.open = !this.warning.open}, 2000)
     }
   },
   computed: {
@@ -392,6 +402,7 @@ export default {
   },
   async mounted () {
     this.articles = await this.$store.dispatch('getDashboard')
+    console.log(this.$refs);
   }
 }
 

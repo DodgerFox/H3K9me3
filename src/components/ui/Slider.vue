@@ -45,6 +45,7 @@ export default {
             // console.log(slider.getAttribute('data-name'));
         });
 
+        this.$store.dispatch('setRange', {name: slider.getAttribute('data-name'),val: slider.noUiSlider.get()})
     });
   }
 }
