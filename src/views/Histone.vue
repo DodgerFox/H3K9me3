@@ -5,15 +5,15 @@
             <div class="wrap">
                 <h2 class="section-title">Histone modification: {{$route.params.id}}</h2>
                 <div class="block">
-                  <div class="block-wrap" v-if="modification.chart">
-                      <h4>{{modification.chart.title}}</h4>
-                      <ChartPeaks :data="modification.chart" />
+                  <div class="block-wrap" v-if="modification || getData">
+                      <h4>{{ modification.chart.title || getData.chart.title }}</h4>
+                      <ChartPeaks :data="modification.chart || getData.chart" />
                   </div>
                   <div class="block-none" v-else>
                       <h4>There is no data</h4>
                   </div>
                 </div>
-                <Table :max="10" v-if="modification.table" :data="modification.table" />
+                <Table :max="10" v-if="modification" :data="modification.table || getData.table" />
                 <!-- <Table :max="10" v-if="getData.table" :data="getData.table" /> -->
             </div>
         </section>
@@ -46,9 +46,9 @@ export default {
     }
   },
   async mounted () {
+    this.modification = await this.$store.dispatch('fetchHistone', [this.$route.params.id, 1, 10])
     this.modification = histone
     console.log(this.modification);
-    await this.$store.dispatch('fetchHistone', [this.$route.params.id, 1, 10])
     // console.log(this.$route.params.id, 'route');
   }
 }

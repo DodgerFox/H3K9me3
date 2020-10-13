@@ -18,7 +18,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Table from '@/components/Table';
-import result from '@/data/result.json'
+// import result from '@/data/result.json'
 
 export default {
   name: 'result',
@@ -39,8 +39,8 @@ export default {
     }
   },
   async mounted () {
-    this.results = await result
-    // this.results = await this.$store.getters.getResults
+    // this.results = await result
+    this.results = await this.$store.getters.getResults
     console.log(this.results);
   }
 }

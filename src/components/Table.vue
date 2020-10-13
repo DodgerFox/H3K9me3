@@ -7,14 +7,14 @@
             </tr>
             <tr v-for="(item, index) in data.data" :key="index">
               <td v-for="(td, name, index) in item" :key="index">
-                <router-link v-if="name === 'Histone Modification'" class="table-link" :to="{path: '/info/histone/' + td}">{{ td }}</router-link>
+                <router-link v-if="name === 'Histone Modification' || name === 'Gene' || name === 'lncRNA'" class="table-link" :to="{path: '/info/histone/' + td}">{{ td }}</router-link>
                 <p v-else>{{ td }}</p>
               </td>
             </tr>
           </tbody>
         </table>
         <div class="table-pagination" v-if="max <= getLength() && data">
-          <p class="table-pagination__text">{{max * page - max + 1}}-{{max * page}} of {{getLength()}} items</p>
+          <p class="table-pagination__text">{{max * page - max + 1}}-{{max * page > data.all_counts ? data.all_counts : max * page}} of {{data.all_counts}} items</p>
           <div class="table-pagination__item back" @click="changePage('back')">
             <img src="@/assets/images/icon_arrow.svg" alt="">
           </div>
@@ -61,7 +61,7 @@ export default {
       if (direction === 'back') {
         this.page = this.page > 1 ? this.page - 1 : this.page
       } else {
-        this.page = this.page < this.getLength() / this.max ? this.page + 1 : this.page
+        this.page = this.page < this.data.all_counts / this.max ? this.page + 1 : this.page
       }
       console.log(this.getLength());
       console.log(this.page);
