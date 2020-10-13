@@ -279,7 +279,7 @@ export default {
         genesInput: null,
         coordsInput: null,
         plus: true,
-        minus: false,
+        minus: null,
         histones: {
             H3K27ac: false,
             H3K27me3: false,

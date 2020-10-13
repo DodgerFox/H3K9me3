@@ -5,7 +5,7 @@ export default {
       activeFilters: [],
       ranges: {
         plus: [0.10, 0.80],
-        minus: [0.10, 0.80]
+        minus: [-0.80, -0.1]
       },
       searchData: null
     },
@@ -30,7 +30,7 @@ export default {
         JSON.stringify(searchData)
         console.log(searchData, 'sd');
         let query = `http://83.149.211.146:22180/lncrna/api/v1/search/results`;
-        console.log(query);
+        
         try {
           await axios
           .post(query, searchData, {headers: {'Content-Type': 'application/json'}})
