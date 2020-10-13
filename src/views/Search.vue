@@ -279,7 +279,7 @@ export default {
         genesInput: null,
         coordsInput: null,
         plus: true,
-        minus: null,
+        minus: false,
         histones: {
             H3K27ac: false,
             H3K27me3: false,
@@ -357,12 +357,6 @@ export default {
     async sendData () {
         let histones = [];
         let access = false;
-        if (this.coords && this.coords.length > 0) {
-            this.coords = this.coords.map(el => {
-                console.log(el.toString());
-                return `[${el.toString()}]`
-            })
-        }
         for (const key in this.histones) {
             const element = this.histones[key];
             console.log(element);

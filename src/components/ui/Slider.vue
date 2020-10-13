@@ -20,16 +20,16 @@ export default {
     }
   },
   mounted: function () {
-    console.log(this.name);
     var sliders = document.getElementsByClassName('slider');
     [].slice.call(sliders).forEach(slider => {
-        
+
+        let name = slider.getAttribute('data-name');
         nouislider.create(slider, {
             range: {
-                'min': 0,
-                'max': 1
+                'min': name === 'minus' ? -1 : 0,
+                'max': name === 'minus' ? 0 : 1
             },
-            start: [0.1, 0.8],
+            start: [name === 'minus' ? -0.8 : 0.1, name === 'minus' ? -0.1 : 0.8],
             margin: 0.1,
             connect: true,
             tooltips: true,
@@ -40,9 +40,6 @@ export default {
         slider.noUiSlider.on('change', async () => {
           let val = await slider.noUiSlider.get();
           this.$store.dispatch('setRange', {name: slider.getAttribute('data-name'),val: val})
-            // slider.noUiSlider.get()
-            // console.log(slider.noUiSlider.get());
-            // console.log(slider.getAttribute('data-name'));
         });
 
         this.$store.dispatch('setRange', {name: slider.getAttribute('data-name'),val: slider.noUiSlider.get()})
