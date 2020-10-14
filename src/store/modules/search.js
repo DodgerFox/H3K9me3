@@ -2,7 +2,6 @@ import axios from 'axios'
 export default {
     state: {
       result: null,
-      activeFilters: [],
       ranges: {
         plus: [0.10, 0.80],
         minus: [-0.80, -0.1]
@@ -33,7 +32,7 @@ export default {
         
         try {
           await axios
-          .post(query, searchData, {headers: {'Content-Type': 'application/json'}})
+          .post(query, searchData, {headers: {'Content-Type': 'application/json'}, timeout: 60000}, {timeout: 2000})
           .then(response => {
             console.log(response,'res');
             result = response.data
@@ -43,7 +42,7 @@ export default {
             console.log(error);
           })
         } catch (error) {
-          console.error(error);
+          console.log(error);
         }
         return result
       },
@@ -52,24 +51,11 @@ export default {
       },
       setRange({commit}, {name, val}) {
         commit('setRange', {name, val})
-      },
-      changeFilters({state, commit}, element) {
-        let id = element.id;
-        let filters = state.filters; 
-        state.filters = filters.map(el => {
-            let fresh = el.id === id ? element : el;
-            return fresh;
-        })        
-        const active = filters.filter(element => element.active);
-        commit('setActiveFilters', active)
-        console.log(state);
       }
     },
     getters: {
         getSearchData: s => s.searchData,
         getResults: s => s.result,
-        getResultPage: s => s.resultPage,
-        getActiveFilters: s => s.activeFilters,
         getRanges: s => s.ranges
     }
   }

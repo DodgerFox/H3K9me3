@@ -63,8 +63,7 @@ export default {
       } else {
         this.page = this.page < this.data.all_counts / this.max ? this.page + 1 : this.page
       }
-      console.log(this.getLength());
-      console.log(this.page);
+      console.log(this.data, 'table');
     }
   },
   computed: {
@@ -95,9 +94,6 @@ export default {
       
       console.log(action);
     }
-  },
-  mounted(){
-    console.log(this.data);
   }
 }
 </script>

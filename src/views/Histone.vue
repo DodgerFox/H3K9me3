@@ -13,7 +13,7 @@
                       <h4>There is no data</h4>
                   </div>
                 </div>
-                <Table :max="10" v-if="modification" :data="modification.table || getData.table" />
+                <Table :max="10" v-if="modification" :data="getData.table || modification.table" />
                 <!-- <Table :max="10" v-if="getData.table" :data="getData.table" /> -->
             </div>
         </section>

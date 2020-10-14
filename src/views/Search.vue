@@ -156,12 +156,9 @@
             </div>
             <div class="search-wrap">
                 <div class="search-string">
-                    <textarea class="textarea" id="coords" cols="30" rows="8" placeholder="Add one by one via tab" v-model="coordsInput" @keydown.tab.prevent="setTab()"></textarea>
+                    <textarea ref="ta" class="textarea" id="coords" cols="30" rows="8" placeholder="Add one by one via tab" v-model="coordsInput" @keydown.tab.prevent="setTab()"></textarea>
                 </div>
                 <div class="search-string">
-                    <div class="button" v-if="coordsInput" @click="setElement('coords')" >
-                        <p>Add input data</p>
-                    </div>
                     <div class="button" v-if="coords.length > 2" @click="showAll('coords')">
                         <p>Show all {{ coords.lenght }}</p>
                     </div>
@@ -296,9 +293,15 @@ export default {
         }
   },
   methods: {
-    setTab (val) {
-        console.log(val);
-        return 'ad'
+    setTab () {
+        let textarea = this.$refs.ta
+        let cursorPosition = textarea.selectionStart;
+        let str = this.coordsInput;
+        let newStr = '';
+        for (const key in str) {
+            key == cursorPosition - 1 ? newStr = newStr + str[key] + '\t' : newStr = newStr + str[key];
+        }
+        this.coordsInput = newStr;
     },
     showAll (name) {
         this.modal.open = true
@@ -334,10 +337,12 @@ export default {
         const reader = new FileReader()
         reader.onload = e => {
             let strings = e.target.result.split('\n');
+            this.coords = []
             strings.forEach(element => {
                 this.coords.push(element.split(/\s+/g))
             })
-            console.log(this.coords);
+            this.showWarning('Coords was uploaded!')
+            this.coordsInput = strings
         }
 
         reader.readAsText(file)
