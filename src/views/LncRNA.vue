@@ -15,7 +15,7 @@
                 </div>
                 <v-select v-if="lncrna.barplot" :options="histones" v-model="active"></v-select>
                 <div class="block" v-if="barplot">
-                  <ChartBarplot :data="barplot" :labels="lncrna.barplot.labels" />
+                  <ChartBarplot :data="barplot"  :labels="lncrna.barplot.labels" />
                 </div>
                 <Links v-if="lncrna.links" :data="lncrna.links" />
                 <Table :max="10" v-if="lncrna" :data="lncrna.table" />

@@ -4,7 +4,7 @@ export default {
     state: {
       histone: null,
       gene: null,
-      lncrna: null,
+      lncrna: null
     },
     mutations: {
       setHistone(state, result) {

@@ -22,7 +22,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Table from '@/components/Table';
 import Loader from '@/components/Loader';
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
   name: 'result',
@@ -46,27 +46,27 @@ export default {
   },
   methods: {
     async download() {
-        let query = `http://83.149.211.146:22180/lncrna/api/v1/download`;
-        let searchData = await this.$store.getters.searchData;
-        JSON.stringify(searchData)
-        try {
-          await axios
-          .post(query, searchData, {headers: {'Content-Type': 'application/json'}, timeout: 60000, responseType: 'blob'})
-          .then(response => {
-            const downloadUrl = window.URL.createObjectURL(new Blob([response]));
-            this.download = downloadUrl;
-            console.log(response, 'download');
-            let link = document.querySelector('.download');
-            link.setAttribute('download', 'file.zip'); //any other extension
-            link.click();
-            link.remove();
-          })
-          .catch(error => {
-            console.log(error);
-          })
-        } catch (error) {
-          console.log(error);
-        }
+        // let query = `http://83.149.211.146:22180/lncrna/api/v1/search/results`;
+        // let searchData = await this.$store.getters.searchData;
+        // JSON.stringify(searchData)
+        // try {
+        //   await axios
+        //   .post(query, searchData, {headers: {'Content-Type': 'application/json'}, timeout: 60000, responseType: 'blob'})
+        //   .then(response => {
+        //     const downloadUrl = window.URL.createObjectURL(new Blob([His]));
+        //     this.download = downloadUrl;
+        //     console.log(response, 'download');
+        //     let link = document.querySelector('.download');
+        //     link.setAttribute('download', 'file.zip'); //any other extension
+        //     link.click();
+        //     link.remove();
+        //   })
+        //   .catch(error => {
+        //     console.log(error);
+        //   })
+        // } catch (error) {
+        //   console.log(error);
+        // }
       }
   },
   async mounted () {
