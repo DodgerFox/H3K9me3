@@ -7,13 +7,15 @@
             </tr>
             <tr v-for="(item, index) in data.data" :key="index">
               <td v-for="(td, name, index) in item" :key="index">
-                <router-link v-if="name === 'Histone Modification' || name === 'Gene' || name === 'lncRNA'" class="table-link" :to="{path: '/info/histone/' + td}">{{ td }}</router-link>
+                <router-link v-if="name === 'Histone Modification'" class="table-link" :to="{path: '/info/histone/' + td}">{{ td }}</router-link>
+                <router-link v-else-if="name === 'lncRNA'" class="table-link" :to="{path: '/info/lncrna/' + td}">{{ td }}</router-link>
+                <router-link v-else-if="name === 'Gene'" class="table-link" :to="{path: '/info/gene/' + td}">{{ td }}</router-link>
                 <p v-else>{{ td }}</p>
               </td>
             </tr>
           </tbody>
         </table>
-        <div class="table-pagination" v-if="max <= getLength() && data">
+        <div class="table-pagination" v-if="max <= data.all_counts && data">
           <p class="table-pagination__text">{{max * page - max + 1}}-{{max * page > data.all_counts ? data.all_counts : max * page}} of {{data.all_counts}} items</p>
           <div class="table-pagination__item back" @click="changePage('back')">
             <img src="@/assets/images/icon_arrow.svg" alt="">
@@ -48,22 +50,12 @@ export default {
     }
   },
   methods: {
-    getLength() {
-      let length;
-      for (const key in this.data) {
-          const element = this.data[key];
-          console.log(key);
-          length = element.length;
-      }
-      return length
-    },
     changePage(direction) {
       if (direction === 'back') {
         this.page = this.page > 1 ? this.page - 1 : this.page
       } else {
         this.page = this.page < this.data.all_counts / this.max ? this.page + 1 : this.page
       }
-      console.log(this.data, 'table');
     }
   },
   computed: {
@@ -73,26 +65,29 @@ export default {
   },
   watch: {
     async getPage () {
-      let data, action;
+      let data;
       let route = this.$route.name;
       switch (route) {
         case 'result':
+          this.$store.dispatch('setLoader', true)
           data = await this.$store.getters.getSearchData;
-          action = await this.$store.dispatch('search', [data, this.page, this.max]);
+          await this.$store.dispatch('search', [data, this.page, this.max]);
+          this.$store.dispatch('setLoader', false)
           break;
         case 'histone':
-          action = await this.$store.dispatch('fetchHistone', [this.$route.params.id, this.page, this.max]);
+          this.$store.dispatch('setLoader', true)
+          await this.$store.dispatch('fetchHistone', [this.$route.params.id, this.page, this.max]);
+          this.$store.dispatch('setLoader', false)
           break;
         case 'gene':
-          action = await this.$store.dispatch('fetchGene', [this.$route.params.id, this.page, this.max]);
+          this.$store.dispatch('setLoader', true)
+          await this.$store.dispatch('fetchGene', [this.$route.params.id, this.page, this.max]);
+          this.$store.dispatch('setLoader', false)
           break;
       
         default:
           break;
       }
-      console.log(route);
-      
-      console.log(action);
     }
   }
 }

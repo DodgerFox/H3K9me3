@@ -22,6 +22,7 @@
                 <!-- <Table :max="10" v-if="getData.table" :data="getData.table" /> -->
             </div>
         </section>
+        <Loader />
         <Footer />
     </main>
 </template>
@@ -30,9 +31,9 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Table from '@/components/Table';
 import Links from '@/components/Links';
+import Loader from '@/components/Loader';
 import ChartPeaks from '@/components/charts/ChartPeaks'
 import ChartBarplot from '@/components/charts/ChartBarplot'
-import lncrna from '@/data/lncrna.json'
 import vSelect from 'vue-select'
 
 export default {
@@ -41,6 +42,7 @@ export default {
     Header,
     Table,
     Links,
+    Loader,
     Footer,
     ChartBarplot,
     ChartPeaks,
@@ -57,9 +59,9 @@ export default {
     }
   },
   async mounted () {
-    this.lncrna = lncrna
-    console.log(this.lncrna);
-    await this.$store.dispatch('fetchLncrna', [this.$route.params.id, 1, 10])
+    this.$store.dispatch('setLoader', true)
+    this.lncrna = await this.$store.dispatch('fetchLncrna', [this.$route.params.id, 1, 10])
+    this.$store.dispatch('setLoader', false)
   }
 }
 

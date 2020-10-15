@@ -20,9 +20,10 @@ export default {
     actions: {
       async fetchHistone({commit}, [histone, page, max]) {
         let result;
+        let query = `http://83.149.211.146:22180/lncrna/api/v1/info/modification?hm=${histone}&page=${page}&page_count=${max}`;
         try {
           await axios
-          .post(`http://83.149.211.146:22180/lncrna/api/v1/info/modification?hm=${histone}&page=${page}&page_count=${max}`)
+          .get(query)
           .then(response => {
             result = response.data
             commit('setHistone', result)
@@ -39,7 +40,7 @@ export default {
         let result;
         try {
           await axios
-          .post(`http://83.149.211.146:22180/lncrna/api/v1/info/gene?gene=${gene}&page=${page}&page_count=${max}`)
+          .get(`http://83.149.211.146:22180/lncrna/api/v1/info/gene?gene=${gene}&page=${page}&page_count=${max}`)
           .then(response => {
             result = response.data
             commit('setGene', result)
@@ -56,7 +57,7 @@ export default {
         let result;
         try {
           await axios
-          .post(`http://83.149.211.146:22180/lncrna/api/v1/info/lncrna?lncrna=${lncrna}&page=${page}&page_count=${max}`)
+          .get(`http://83.149.211.146:22180/lncrna/api/v1/info/lncrna?lncrna=${lncrna}&page=${page}&page_count=${max}`)
           .then(response => {
             result = response.data
             commit('setLncrna', result)

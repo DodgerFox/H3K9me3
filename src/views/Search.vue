@@ -236,6 +236,7 @@
             </div>
         </div>
     </section>
+    <Loader />
     <Notification v-if="warning.open" :title="warning.title"/>
     <Footer />
   </main>
@@ -245,6 +246,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Slider from '@/components/ui/Slider';
+import Loader from '@/components/Loader';
 import Notification from '@/components/Notification';
 import UploadButton from 'vuetify-upload-button'
 
@@ -254,6 +256,7 @@ export default {
     Header,
     Footer,
     Slider,
+    Loader,
     Notification,
     UploadButton
   },
@@ -379,10 +382,11 @@ export default {
                 coords: this.coords,
                 thresholds_choisen: [this.plus, this.minus]
             };
-            console.log(searchData);
+            this.$store.dispatch('setLoader', true)
             await this.$store.dispatch('setSearch', searchData)
             let result = await this.$store.dispatch('search', [searchData, 0, 10])
             console.log(result);
+            this.$store.dispatch('setLoader', false)
             result ? this.$router.push('/result') : this.showWarning('Something went wrong');
         } else {
             this.showWarning()
@@ -398,10 +402,6 @@ export default {
     getRanges () {
       return this.$store.getters.getRanges
     }
-  },
-  async mounted () {
-    this.articles = await this.$store.dispatch('getDashboard')
-    console.log(this.$refs);
   }
 }
 

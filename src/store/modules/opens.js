@@ -1,25 +1,19 @@
 
 export default {
   state: {
-    panel: false,
-    workplace: false,
-    transport: false,
-    loader: true
+    loader: false
   },
   mutations: {
-    setState(state, element, val) {
-      state[element] = val ? val : !state[element]
+    setLoader(state, val) {
+      state.loader = val
     }
   },
   actions: {
-    changeState({commit}, element, val) {
-        commit('setState', element, val)
+    setLoader({commit}, val) {
+        commit('setLoader', val)
     }
   },
   getters: {
-    panel: s => s.panel,
-    workplace: s => s.workplace,
-    transport: s => s.transport,
     loader: s => s.loader
   }
 }

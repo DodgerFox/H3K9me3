@@ -17,6 +17,7 @@
                 <!-- <Table :max="10" v-if="getData.table" :data="getData.table" /> -->
             </div>
         </section>
+        <Loader />
         <Footer />
     </main>
 </template>
@@ -24,14 +25,15 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Table from '@/components/Table';
+import Loader from '@/components/Loader';
 import ChartPeaks from '@/components/charts/ChartPeaks'
-import histone from '@/data/histone.json'
 
 export default {
   name: 'histone',
   components: {
     Header,
     Table,
+    Loader,
     Footer,
     ChartPeaks
   },
@@ -46,10 +48,9 @@ export default {
     }
   },
   async mounted () {
+    this.$store.dispatch('setLoader', true)
     this.modification = await this.$store.dispatch('fetchHistone', [this.$route.params.id, 1, 10])
-    this.modification = histone
-    console.log(this.modification);
-    // console.log(this.$route.params.id, 'route');
+    this.$store.dispatch('setLoader', false)
   }
 }
 

@@ -12,6 +12,10 @@
             <p>Browser</p>
           </router-link>
         </div>
+        <div class="scroll-down">
+          <p class="scroll-down__text">Scroll down</p>
+          <img src="@/assets/images/scroll-down.svg" width="40px">
+        </div>
       </div>
     </section>
 

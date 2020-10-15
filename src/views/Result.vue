@@ -13,6 +13,7 @@
                 <Table :max="10" v-if="results" :data="getTable.table || results.table" />
             </div>
         </section>
+        <Loader />
         <Footer />
     </main>
 </template>
@@ -20,6 +21,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Table from '@/components/Table';
+import Loader from '@/components/Loader';
 import axios from 'axios'
 
 export default {
@@ -27,6 +29,7 @@ export default {
   components: {
     Header,
     Table,
+    Loader,
     Footer
   },
   data() {
