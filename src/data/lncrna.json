@@ -103,36 +103,168 @@
       },
       "barplot": {
         "labels": ["Chr1", "Chr2", "Chr3", "Chr4", "Chr5", "Chr6"],
-        "elements": [
-            [
+        "elements": {
+
+          "H3K27me3":
+            [[
                 {
                     "label": "Label",
-                    "x": 20,
+                    "x": 4,
                     "y": 1
                 },
                 {
                     "title": "Label",
-                    "x": 10,
+                    "x": 14,
                     "y": 2
                 },
                 {
                     "label": "Label",
-                    "x": 30,
+                    "x": 25,
                     "y": -1
                 },
                 {
                     "label": "Label",
-                    "x": 40,
+                    "x": 32,
                     "y": -2
                 },
                 {
                     "label": "Label",
-                    "x": 40,
+                    "x": 43,
                     "y": -4
                 },
                 {
                     "label": "Label",
-                    "x": 40,
+                    "x": 52,
+                    "y": -5
+                }
+            ],
+            [
+                {
+                    "label": "Label",
+                    "x": 3,
+                    "y": 2
+                },
+                {
+                    "title": "Label",
+                    "x": 12,
+                    "y": 3
+                },
+                {
+                    "label": "Label",
+                    "x": 23,
+                    "y": -2
+                },
+                {
+                    "label": "Label",
+                    "x": 35,
+                    "y": -3
+                },
+                {
+                    "label": "Label",
+                    "x": 41,
+                    "y": -5
+                },
+                {
+                    "label": "Label",
+                    "x": 52,
+                    "y": -5
+                }
+            ],
+            [
+                {
+                    "label": "Label",
+                    "x": 2,
+                    "y": 5
+                },
+                {
+                    "title": "Label",
+                    "x": 11,
+                    "y": 7
+                },
+                {
+                    "label": "Label",
+                    "x": 24,
+                    "y": -3
+                },
+                {
+                    "label": "Label",
+                    "x": 31,
+                    "y": -5
+                },
+                {
+                    "label": "Label",
+                    "x": 42,
+                    "y": -8
+                },
+                {
+                    "label": "Label",
+                    "x": 52,
+                    "y": -5
+                }
+            ]
+        ],
+          "Methylation":
+            [[
+                {
+                    "label": "Label",
+                    "x": 4,
+                    "y": 1
+                },
+                {
+                    "title": "Label",
+                    "x": 14,
+                    "y": 2
+                },
+                {
+                    "label": "Label",
+                    "x": 25,
+                    "y": -1
+                },
+                {
+                    "label": "Label",
+                    "x": 32,
+                    "y": -2
+                },
+                {
+                    "label": "Label",
+                    "x": 43,
+                    "y": -4
+                },
+                {
+                    "label": "Label",
+                    "x": 53,
+                    "y": -5
+                }
+            ],
+            [
+                {
+                    "label": "Label",
+                    "x": 3,
+                    "y": 2
+                },
+                {
+                    "title": "Label",
+                    "x": 12,
+                    "y": 3
+                },
+                {
+                    "label": "Label",
+                    "x": 23,
+                    "y": -2
+                },
+                {
+                    "label": "Label",
+                    "x": 36,
+                    "y": -3
+                },
+                {
+                    "label": "Label",
+                    "x": 48,
+                    "y": -5
+                },
+                {
+                    "label": "Label",
+                    "x": 59,
                     "y": -5
                 }
             ],
@@ -140,11 +272,77 @@
                 {
                     "label": "Label",
                     "x": 20,
-                    "y": 2
+                    "y": 5
                 },
                 {
                     "title": "Label",
                     "x": 10,
+                    "y": 7
+                },
+                {
+                    "label": "Label",
+                    "x": 30,
+                    "y": -3
+                },
+                {
+                    "label": "Label",
+                    "x": 40,
+                    "y": -5
+                },
+                {
+                    "label": "Label",
+                    "x": 40,
+                    "y": -8
+                },
+                {
+                    "label": "Label",
+                    "x": 40,
+                    "y": -5
+                }
+            ]
+        ],
+          "H3K27ac":
+            [[
+                {
+                    "label": "Label",
+                    "x": 12,
+                    "y": 1
+                },
+                {
+                    "title": "Label",
+                    "x": 24,
+                    "y": 2
+                },
+                {
+                    "label": "Label",
+                    "x": 35,
+                    "y": -1
+                },
+                {
+                    "label": "Label",
+                    "x": 42,
+                    "y": -2
+                },
+                {
+                    "label": "Label",
+                    "x": 53,
+                    "y": -4
+                },
+                {
+                    "label": "Label",
+                    "x": 52,
+                    "y": -5
+                }
+            ],
+            [
+                {
+                    "label": "Label",
+                    "x": 3,
+                    "y": 2
+                },
+                {
+                    "title": "Label",
+                    "x": 12,
                     "y": 3
                 },
                 {
@@ -201,6 +399,7 @@
                 }
             ]
         ]
+      }
   
       },
       "table": {

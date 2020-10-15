@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     async download() {
-        let query = `http://83.149.211.146:22180/lncrna/api/v1/search/results`;
+        let query = `http://83.149.211.146:22180/lncrna/api/v1/download`;
         let searchData = await this.$store.getters.searchData;
         JSON.stringify(searchData)
         try {
@@ -55,6 +55,7 @@ export default {
           .then(response => {
             const downloadUrl = window.URL.createObjectURL(new Blob([response]));
             this.download = downloadUrl;
+            console.log(response, 'download');
             let link = document.querySelector('.download');
             link.setAttribute('download', 'file.zip'); //any other extension
             link.click();
@@ -70,7 +71,7 @@ export default {
   },
   async mounted () {
     this.results = await this.$store.getters.getResults
-    // this.download()
+    this.download()
     console.log(this.results);
   }
 }
