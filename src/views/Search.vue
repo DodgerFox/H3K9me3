@@ -384,8 +384,7 @@ export default {
             };
             this.$store.dispatch('setLoader', true)
             await this.$store.dispatch('setSearch', searchData)
-            let result = await this.$store.dispatch('search', [searchData, 0, 10])
-            console.log(result);
+            let result = await this.$store.dispatch('search', [searchData, 1, 10])
             this.$store.dispatch('setLoader', false)
             result ? this.$router.push('/result') : this.showWarning('Something went wrong');
         } else {

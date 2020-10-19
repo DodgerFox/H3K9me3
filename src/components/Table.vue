@@ -10,6 +10,7 @@
                 <router-link v-if="name === 'Histone Modification'" class="table-link" :to="{path: '/info/histone/' + td}">{{ td }}</router-link>
                 <router-link v-else-if="name === 'lncRNA'" class="table-link" :to="{path: '/info/lncrna/' + td}">{{ td }}</router-link>
                 <router-link v-else-if="name === 'Gene'" class="table-link" :to="{path: '/info/gene/' + td}">{{ td }}</router-link>
+                <router-link v-else-if="name === 'Corr'" class="table-link" :to="{path: '/info/corr/' + td}">{{ td }}</router-link>
                 <p v-else>{{ td }}</p>
               </td>
             </tr>
@@ -79,9 +80,19 @@ export default {
           await this.$store.dispatch('fetchHistone', [this.$route.params.id, this.page, this.max]);
           this.$store.dispatch('setLoader', false)
           break;
+        case 'lncrna':
+          this.$store.dispatch('setLoader', true)
+          await this.$store.dispatch('fetchLncrna', [this.$route.params.id, this.page, this.max]);
+          this.$store.dispatch('setLoader', false)
+          break;
         case 'gene':
           this.$store.dispatch('setLoader', true)
           await this.$store.dispatch('fetchGene', [this.$route.params.id, this.page, this.max]);
+          this.$store.dispatch('setLoader', false)
+          break;
+        case 'corr':
+          this.$store.dispatch('setLoader', true)
+          await this.$store.dispatch('fetchCorr', [this.$route.params.id, this.page, this.max]);
           this.$store.dispatch('setLoader', false)
           break;
       

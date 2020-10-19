@@ -11,7 +11,6 @@ export default {
     mutations: {
       setRange(state, {name, val}) {
         state.ranges[name] = val
-        console.log(state.ranges);
       },
       setResults(state, result) {
         state.result = result

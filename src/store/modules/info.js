@@ -4,7 +4,8 @@ export default {
     state: {
       histone: null,
       gene: null,
-      lncrna: null
+      lncrna: null,
+      corr: null
     },
     mutations: {
       setHistone(state, result) {
@@ -15,6 +16,9 @@ export default {
       },
       setLncrna(state, result) {
         state.lncrna = result
+      },
+      setCorr(state, result) {
+        state.corr = result
       }
     },
     actions: {
@@ -69,12 +73,30 @@ export default {
           console.error(error);
         }
         return result
+      },
+      async fetchCorr({commit}, [peak, lncrna, hm, page, max]) {
+        let result;
+        try {
+          await axios
+          .get(`http://83.149.211.146:22180/lncrna/api/v1/info/corr?peak_id=${peak}&lncrna=${lncrna}&hm=${hm}&page=${page}&page_count=${max}`)
+          .then(response => {
+            result = response.data
+            commit('setCorr', result)
+          })
+          .catch(error => {
+            console.log(error);
+          })
+        } catch (error) {
+          console.error(error);
+        }
+        return result
       }
     },
     getters: {
         getHistone: s => s.histone,
         getGene: s => s.gene,
-        getLncrna: s => s.lncrna
+        getLncrna: s => s.lncrna,
+        getCorr: s => s.corr
     }
   }
   

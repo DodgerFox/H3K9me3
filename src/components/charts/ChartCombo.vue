@@ -35,16 +35,7 @@ export default {
             datasets: [{
                 type: 'scatter',
                 label: 'Scatter',
-                data: [{
-                    x: 30,
-                    y: 20
-                }, {
-                    x: 20,
-                    y: 10
-                }, {
-                    x: 10,
-                    y: 40
-                }],
+                data: this.data.points,
                 borderColor: '#31b0d9',
                 backgroundColor: '#31b0d9'
                 // xAxisID: 'left-y-axis'
@@ -52,7 +43,7 @@ export default {
             {
                 type: 'line',
                 label: 'Line',
-                data: [{x:0, y:0}, {x:50, y:50}, {x:50, y:50}, {x:50, y:50}],
+                data: this.data.line,
                 fill: false,
                 backgroundColor: '#fe5c78',
                 borderColor: '#fe5c78'

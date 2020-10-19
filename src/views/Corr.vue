@@ -27,7 +27,7 @@ import Footer from '@/components/Footer';
 import Table from '@/components/Table';
 import Links from '@/components/Links';
 import ChartCombo from '@/components/charts/ChartCombo'
-import histone from '@/data/scatter.json'
+import coords from '@/data/coords.json'
 
 export default {
   name: 'lncrna',
@@ -45,11 +45,11 @@ export default {
   },
   computed: {
     getData () {
-      return this.$store.getters.getHistone
+      return this.$store.getters.getCoords
     }
   },
   async mounted () {
-    this.modification = histone
+    this.modification = coords
     console.log(this.modification);
     await this.$store.dispatch('fetchGene', [this.$route.params.id, 1, 10])
   }

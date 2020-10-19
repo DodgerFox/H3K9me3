@@ -63,7 +63,6 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Table from '@/components/Table';
-import result from '@/data/result.json'
 
 export default {
   name: 'dashboard',
@@ -83,8 +82,8 @@ export default {
     }
   },
   async mounted () {
-    this.research = await result
-    // this.research = await this.$store.dispatch('getDashboard')
+    this.research = await this.$store.dispatch('getDashboard')
+    console.log(this.reseach);
   }
 }
 

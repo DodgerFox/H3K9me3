@@ -33,18 +33,18 @@ const routes = [
   },
   {
     path: '/info/lncrna/:id',
-    name: 'histone',
+    name: 'lncrna',
     component: () => import('@/views/LncRNA')
   },
   {
     path: '/info/gene/:id',
-    name: 'histone',
+    name: 'gene',
     component: () => import('@/views/Gene')
   },
   {
-    path: '/info/scatter/:id',
-    name: 'histone',
-    component: () => import('@/views/Scatter')
+    path: '/info/corr/:id',
+    name: 'Corr',
+    component: () => import('@/views/Corr')
   },
   { 
     path: '/404', 
