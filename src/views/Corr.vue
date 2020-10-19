@@ -3,7 +3,7 @@
         <Header />
         <section class="detail">
             <div class="wrap">
-                <h2 class="section-title">{{this.$route.query.peak + ', ' + this.$route.query.lncrna + ', ' + this.$route.query.hm}}</h2>
+                <h2 v-if="getdata || corr" class="section-title">{{getData.title || corr.title}}</h2>
                 <div class="block">
                   <div class="block-wrap" v-if="corr">
                       <h4>{{corr.chart.title}}</h4>
