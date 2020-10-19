@@ -156,7 +156,7 @@
             </div>
             <div class="search-wrap">
                 <div class="search-string">
-                    <textarea ref="ta" class="textarea" id="coords" cols="30" rows="8" placeholder="Add one by one via tab" v-model="coordsInput" @keydown="changeCoords" @keydown.tab.prevent="setTab()"></textarea>
+                    <textarea ref="ta" class="textarea" id="coords" cols="30" rows="8" placeholder="Add one by one via tab" v-model="coordsInput" @keyup="changeCoords" @keydown.tab.prevent="setTab()"></textarea>
                 </div>
                 <div class="search-string">
                     <div class="button" v-if="coords.length > 2" @click="showAll('coords')">
@@ -299,7 +299,7 @@ export default {
         this.coords = []
         let strings = this.coordsInput.split('\n')
         await strings.forEach(element => {
-            this.coords.push(element.split(' '))
+            this.coords.push(element.split('\t'))
         })
     },
     setTab () {
@@ -345,8 +345,7 @@ export default {
             let strings = e.target.result.split('\n');
             this.coords = []
             strings.forEach(element => {
-                console.log(element.split(' '));
-                this.coords.push(element.split(' '))
+                this.coords.push(element.split('\t'))
             })
             this.showWarning('Coords was uploaded!')
             this.coordsInput = e.target.result
@@ -358,7 +357,7 @@ export default {
         if (name === 'coords') {
             let strings = this[name + 'Input'].split('\n');
             strings.forEach(element => {
-                this[name].push(element.split(/\s+/g))
+                this[name].push(element.split('\t'))
             })
             console.log(this[name]);
         } else {
