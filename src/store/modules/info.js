@@ -84,6 +84,7 @@ export default {
           .get(query)
           .then(response => {
             result = response.data
+            console.log(result);
             commit('setCorr', result)
           })
           .catch(error => {

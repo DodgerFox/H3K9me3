@@ -156,7 +156,7 @@
             </div>
             <div class="search-wrap">
                 <div class="search-string">
-                    <textarea ref="ta" class="textarea" id="coords" cols="30" rows="8" placeholder="Add one by one via tab" v-model="coordsInput" @keydown.tab.prevent="setTab()"></textarea>
+                    <textarea ref="ta" class="textarea" id="coords" cols="30" rows="8" placeholder="Add one by one via tab" v-model="coordsInput" @keydown="changeCoords" @keydown.tab.prevent="setTab()"></textarea>
                 </div>
                 <div class="search-string">
                     <div class="button" v-if="coords.length > 2" @click="showAll('coords')">
@@ -213,7 +213,6 @@
         </div>
         <div class="search-button">
             <input class="button" type="submit" value="Search by choisen filters" />
-            <!-- <p class="search-button__text">finded 6120 picks</p> -->
         </div>
       </form>
     </section>
@@ -296,6 +295,13 @@ export default {
         }
   },
   methods: {
+    async changeCoords () {
+        this.coords = []
+        let strings = this.coordsInput.split('\n')
+        await strings.forEach(element => {
+            this.coords.push(element.split(' '))
+        })
+    },
     setTab () {
         let textarea = this.$refs.ta
         let cursorPosition = textarea.selectionStart;
@@ -310,7 +316,6 @@ export default {
         this.modal.open = true
         this.modal.data = this[name]
         this.modal.title = name;
-        console.log(this.modal);
     },
     genesFile(file) {
         const reader = new FileReader()
@@ -319,7 +324,6 @@ export default {
             dataArray.forEach(element => {
                 this.genes.push(element)
             });
-            console.log(e);
         }
 
         reader.readAsText(file)
@@ -331,7 +335,6 @@ export default {
             dataArray.forEach(element => {
                 this.lncrna.push(element)
             });
-            console.log(e);
         }
 
         reader.readAsText(file)
@@ -342,10 +345,11 @@ export default {
             let strings = e.target.result.split('\n');
             this.coords = []
             strings.forEach(element => {
-                this.coords.push(element.split(/\s+/g))
+                console.log(element.split(' '));
+                this.coords.push(element.split(' '))
             })
             this.showWarning('Coords was uploaded!')
-            this.coordsInput = strings
+            this.coordsInput = e.target.result
         }
 
         reader.readAsText(file)
@@ -388,7 +392,7 @@ export default {
             this.$store.dispatch('setLoader', false)
             result ? this.$router.push('/result') : this.showWarning('Something went wrong');
         } else {
-            this.showWarning()
+            this.showWarning('Something went wrong')
         }
     },
     showWarning(title) {
