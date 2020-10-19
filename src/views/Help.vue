@@ -61,7 +61,6 @@ export default {
   methods: {
       setTab(number) {
           this.active = this.active === number ? null : number;
-          console.log(this.active);
       }
   }
 }

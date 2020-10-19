@@ -371,7 +371,6 @@ export default {
         let access = false;
         for (const key in this.histones) {
             const element = this.histones[key];
-            console.log(element);
             element ? (
                 histones.push(key),
                 access = true

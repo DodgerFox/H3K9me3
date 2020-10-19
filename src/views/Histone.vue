@@ -14,7 +14,6 @@
                   </div>
                 </div>
                 <Table :max="10" v-if="modification" :data="getData.table || modification.table" />
-                <!-- <Table :max="10" v-if="getData.table" :data="getData.table" /> -->
             </div>
         </section>
         <Loader />

@@ -15,6 +15,7 @@
                 </div>
                 <Links v-if="gene" :data="getData.table || gene.links" />
                 <Table :max="10" v-if="gene" :data="getData.table || gene.table" />
+                <Table :max="10" v-if="gene" :data="getData.gene_other_peaks || gene.gene_other_peaks" />
             </div>
         </section>
         <Footer />

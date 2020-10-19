@@ -68,7 +68,6 @@ export default {
     this.$store.dispatch('setLoader', false)
     let count = false;
     this.histones = [];
-    console.log(this.lncrna.barplot);
     if (this.lncrna.barplot) {
       
       for (const key in this.lncrna.barplot.elements) {
@@ -82,12 +81,9 @@ export default {
       }
     }
     }
-    console.log(this.active, this.histones);
-    console.log(this.lncrna);
   },
   watch: {
     getActive(active) {
-      console.log(active);
       this.barplot = this.lncrna.barplot.elements[active]
     }
   }

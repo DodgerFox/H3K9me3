@@ -47,7 +47,6 @@ export default {
     }
   },
   async mounted () {
-    console.log(this.$route.query);
     this.corr = await this.$store.dispatch('fetchCorr', [this.$route.query, 1, 10])
   }
 }
