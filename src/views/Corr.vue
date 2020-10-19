@@ -3,19 +3,18 @@
         <Header />
         <section class="detail">
             <div class="wrap">
-                <h2 class="section-title">{{$route.params.id}}</h2>
+                <h2 class="section-title">{{this.$route.query.peak + ', ' + this.$route.query.lncrna + ', ' + this.$route.query.hm}}</h2>
                 <div class="block">
-                  <div class="block-wrap" v-if="modification.chart">
-                      <h4>{{modification.chart.title}}</h4>
-                      <ChartCombo :data="modification.chart" />
+                  <div class="block-wrap" v-if="corr">
+                      <h4>{{corr.chart.title}}</h4>
+                      <ChartCombo :data="getData.chart || corr.chart" />
                   </div>
                   <div class="block-none" v-else>
                       <h4>There is no data</h4>
                   </div>
                 </div>
-                <Links v-if="modification.links" :data="modification.links" />
-                <Table :max="10" v-if="modification.table" :data="modification.table" />
-                <!-- <Table :max="10" v-if="getData.table" :data="getData.table" /> -->
+                <Links v-if="corr" :data="corr.links" />
+                <Table :max="10" v-if="corr" :data="getData.table || corr.table" />
             </div>
         </section>
         <Footer />
@@ -27,7 +26,6 @@ import Footer from '@/components/Footer';
 import Table from '@/components/Table';
 import Links from '@/components/Links';
 import ChartCombo from '@/components/charts/ChartCombo'
-import coords from '@/data/coords.json'
 
 export default {
   name: 'lncrna',
@@ -40,18 +38,17 @@ export default {
   },
   data() {
     return {
-      modification: null
+      corr: null
     }
   },
   computed: {
     getData () {
-      return this.$store.getters.getCoords
+      return this.$store.getters.getCorr
     }
   },
   async mounted () {
-    this.modification = coords
-    console.log(this.modification);
-    await this.$store.dispatch('fetchGene', [this.$route.params.id, 1, 10])
+    console.log(this.$route.query);
+    this.corr = await this.$store.dispatch('fetchCorr', [this.$route.query, 1, 10])
   }
 }
 

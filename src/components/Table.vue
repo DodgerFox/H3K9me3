@@ -10,7 +10,7 @@
                 <router-link v-if="name === 'Histone Modification'" class="table-link" :to="{path: '/info/histone/' + td}">{{ td }}</router-link>
                 <router-link v-else-if="name === 'lncRNA'" class="table-link" :to="{path: '/info/lncrna/' + td}">{{ td }}</router-link>
                 <router-link v-else-if="name === 'Gene'" class="table-link" :to="{path: '/info/gene/' + td}">{{ td }}</router-link>
-                <router-link v-else-if="name === 'Corr'" class="table-link" :to="{path: '/info/corr/' + td}">{{ td }}</router-link>
+                <router-link v-else-if="name === 'Corr'" class="table-link" :to="{name: 'Corr', query: {peak: item['Peak Id'], lncrna: item.lncRNA, hm: item['Histone Modification']}}">{{ td }}</router-link>
                 <p v-else>{{ td }}</p>
               </td>
             </tr>

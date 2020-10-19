@@ -42,7 +42,7 @@ const routes = [
     component: () => import('@/views/Gene')
   },
   {
-    path: '/info/corr/:id',
+    path: '/info/corr',
     name: 'Corr',
     component: () => import('@/views/Corr')
   },

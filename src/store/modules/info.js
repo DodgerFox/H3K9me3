@@ -74,11 +74,14 @@ export default {
         }
         return result
       },
-      async fetchCorr({commit}, [peak, lncrna, hm, page, max]) {
+      async fetchCorr({commit}, [params, page, max]) {
         let result;
+        console.log(params);
+        let query = `http://83.149.211.146:22180/lncrna/api/v1/info/corr?peak_id=${params.peak}&lncrna=${params.lncrna}&hm=${params.hm}&page=${page}&page_count=${max}`;
+        console.log(query);
         try {
           await axios
-          .get(`http://83.149.211.146:22180/lncrna/api/v1/info/corr?peak_id=${peak}&lncrna=${lncrna}&hm=${hm}&page=${page}&page_count=${max}`)
+          .get(query)
           .then(response => {
             result = response.data
             commit('setCorr', result)
