@@ -44,9 +44,10 @@ export default {
         let result;
         try {
           await axios
-          .get(`http://83.149.211.146:22180/lncrna/api/v1/info/gene?gene=${gene}&page=${page}&page_count=${max}`)
+          .get(`http://83.149.211.146:22180/lncrna/api/v1/info/gene?gene=${gene}&page=${page}&page_count=${max}&other_page=1&other_page_count=10`)
           .then(response => {
             result = response.data
+            console.log(result);
             commit('setGene', result)
           })
           .catch(error => {

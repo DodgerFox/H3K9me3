@@ -83,6 +83,7 @@ export default {
   },
   async mounted () {
     this.research = await this.$store.dispatch('getDashboard')
+    console.log(this.research);
   }
 }
 

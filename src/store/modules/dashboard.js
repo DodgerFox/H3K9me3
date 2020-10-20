@@ -16,7 +16,7 @@ export default {
           await axios
           .get('http://83.149.211.146:22180/lncrna/api/v1/dashboard')
           .then(responce => {
-            result = responce.data.response.table
+            result = responce.data
             commit('setTableDashboard', result)
             console.log(result);
           })
