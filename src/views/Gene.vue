@@ -7,13 +7,13 @@
                 <div class="block">
                   <div class="block-wrap" v-if="gene">
                       <h4>{{gene.chart.title}}</h4>
-                      <ChartPeaks :data="getData.table || gene.chart" />
+                      <ChartPeaks :data="getData.chart || gene.chart" />
                   </div>
                   <div class="block-none" v-else>
                       <h4>There is no data</h4>
                   </div>
                 </div>
-                <Links v-if="gene" :data="getData.table || gene.links" />
+                <Links v-if="gene" :data="getData.links || gene.links" />
                 <Table :max="10" v-if="gene" :data="getData.table || gene.table" />
                 <Table class="double-top" :max="10" v-if="gene" :data="getData.other_peaks_table || gene.other_peaks_table" />
             </div>
