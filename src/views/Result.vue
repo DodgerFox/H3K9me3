@@ -54,6 +54,7 @@ export default {
           await axios
           .post(query, searchData, {headers: {'Content-Type': 'application/json'}, timeout: 60000})
           .then(response => {
+            console.log(response, 'link');
             window.open(response, '_blank')
             this.$store.dispatch('setLoader', false)
           })

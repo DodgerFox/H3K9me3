@@ -32,7 +32,7 @@
               <p>Search</p>
             </router-link>
           </div>
-          <div class="section-image" style="background-image: url('@/assets/images/section-1.jpg');"></div>
+          <div class="section-image" :style="{backgroundImage: 'url(' + require('@/assets/images/section-1.jpg') + ')'}"></div>
         </div>
         <div class="section-block">
           <div class="section-content">
@@ -43,7 +43,7 @@
               <p>Search</p>
             </router-link>
           </div>
-          <div class="section-image" :style="{ backgroundImage: 'url(@/assets/images/section-1.jpg)' }"></div>
+          <div class="section-image" :style="{ backgroundImage: 'url(~@/assets/images/section-1.jpg)' }"></div>
         </div>
       </div>
     </section>

@@ -5,7 +5,7 @@
             <div class="wrap">
                 <h2 v-if="getdata || corr" class="section-title">{{getData.title || corr.title}}</h2>
                 <div class="block">
-                  <div class="block-wrap" v-if="corr">
+                  <div class="block-wrap" v-if="getData || corr">
                       <h4>{{corr.chart.title}}</h4>
                       <ChartCombo :data="getData.chart || corr.chart" />
                   </div>
@@ -14,7 +14,7 @@
                   </div>
                 </div>
                 <Links v-if="corr" :data="corr.links" />
-                <Table :max="10" v-if="corr" :data="getData.table || corr.table" />
+                <Table :max="10" v-if="getData || corr" :data="getData.table || corr.table" />
             </div>
         </section>
         <Footer />
@@ -48,6 +48,7 @@ export default {
   },
   async mounted () {
     this.corr = await this.$store.dispatch('fetchCorr', [this.$route.query, 1, 10])
+    console.log(this.corr);
   }
 }
 

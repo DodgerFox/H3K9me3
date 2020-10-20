@@ -83,8 +83,8 @@ export default {
           await axios
           .get(query)
           .then(response => {
-            result = response.data
-            console.log(result);
+            result = response.data.response
+            console.log(result, 'ch resdwawd');
             commit('setCorr', result)
           })
           .catch(error => {
