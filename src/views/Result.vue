@@ -48,13 +48,11 @@ export default {
       let query = `http://83.149.211.146:22180/lncrna/api/v1/download`;
         let searchData = await this.$store.getters.getSearchData;
         JSON.stringify(searchData)
-        console.log(searchData);
         try {
           this.$store.dispatch('setLoader', true)
           await axios
           .post(query, searchData, {headers: {'Content-Type': 'application/json'}, timeout: 60000})
           .then(response => {
-            console.log(response, 'link');
             window.open(response, '_blank')
             this.$store.dispatch('setLoader', false)
           })

@@ -47,8 +47,9 @@ export default {
     }
   },
   async mounted () {
+    this.$store.dispatch('setLoader', true)
     this.corr = await this.$store.dispatch('fetchCorr', [this.$route.query, 1, 10])
-    console.log(this.corr);
+    this.$store.dispatch('setLoader', false)
   }
 }
 

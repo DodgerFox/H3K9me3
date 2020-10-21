@@ -14,9 +14,6 @@ export default {
             type: Array,
             required: false
         }
-    },
-    mounted() {
-        console.log(this.data, 'adadw');
     }
 }
 </script>

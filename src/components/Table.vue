@@ -17,12 +17,12 @@
           </tbody>
         </table>
         <div class="table-pagination" v-if="max <= data.all_counts && data">
-          <p class="table-pagination__text">{{max * page - max + 1}}-{{max * page > data.all_counts ? data.all_counts : max * page}} of {{data.all_counts}} items</p>
+          <p class="table-pagination__text">{{max * page - max + 1}}-{{max * page > data.all_counts ? data.all_counts : max * page}} of {{ data.all_counts ? data.all_counts : 'many'}} items</p>
           <div class="table-pagination__item back" @click="changePage('back')">
-            <img src="@/assets/images/icon_arrow.svg" alt="">
+            <img src="@/assets/images/icon_arrow.svg">
           </div>
           <div class="table-pagination__item next" @click="changePage('next')">
-            <img src="@/assets/images/icon_arrow.svg" alt="">
+            <img src="@/assets/images/icon_arrow.svg">
           </div>
         </div>
         <div class="block-nodata" v-if="!data">
@@ -43,6 +43,11 @@ export default {
       type: Number,
       required: false,
       default: 10
+    },
+    num: {
+      type: Number,
+      required: false,
+      default: 1
     }
   },
   data: () => {
@@ -87,7 +92,7 @@ export default {
           break;
         case 'gene':
           this.$store.dispatch('setLoader', true)
-          await this.$store.dispatch('fetchGene', [this.$route.params.id, this.page, this.max]);
+          await this.num == '2' ? this.$store.dispatch('fetchGene', [this.$route.params.id, this.$store.getters.getGeneData[1], this.$store.getters.getGeneData[2], this.page, this.max]) : this.$store.dispatch('fetchGene', [this.$route.params.id, this.page, this.max, this.$store.getters.getGeneData[3], this.$store.getters.getGeneData[4]]);
           this.$store.dispatch('setLoader', false)
           break;
         case 'corr':

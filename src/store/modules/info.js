@@ -4,6 +4,7 @@ export default {
     state: {
       histone: null,
       gene: null,
+      geneData: null,
       lncrna: null,
       corr: null
     },
@@ -19,6 +20,10 @@ export default {
       },
       setCorr(state, result) {
         state.corr = result
+      },
+      setGeneData(state, result) {
+        state.geneData = result
+        console.log(result, 'geeData');
       }
     },
     actions: {
@@ -40,11 +45,12 @@ export default {
         }
         return result
       },
-      async fetchGene({commit}, [gene, page, max]) {
+      async fetchGene({commit}, [gene, page, max, opage, omax]) {
         let result;
+        commit('setGeneData', [gene, page, max, opage, omax])
         try {
           await axios
-          .get(`http://83.149.211.146:22180/lncrna/api/v1/info/gene?gene=${gene}&page=${page}&page_count=${max}&other_page=1&other_page_count=10`)
+          .get(`http://83.149.211.146:22180/lncrna/api/v1/info/gene?gene=${gene}&page=${page}&page_count=${max}&other_page=${opage}&other_page_count=${omax}`)
           .then(response => {
             result = response.data
             console.log(result);
@@ -100,6 +106,7 @@ export default {
     getters: {
         getHistone: s => s.histone,
         getGene: s => s.gene,
+        getGeneData: s => s.geneData,
         getLncrna: s => s.lncrna,
         getCorr: s => s.corr
     }

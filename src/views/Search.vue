@@ -359,7 +359,6 @@ export default {
             strings.forEach(element => {
                 this[name].push(element.split('\t'))
             })
-            console.log(this[name]);
         } else {
             this[name].push(this[name + 'Input'])
         }

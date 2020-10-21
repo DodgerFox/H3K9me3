@@ -52,7 +52,7 @@
         <h2 class="section-title">Research results</h2>
         <p class="section-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
 
-        <Table :max="10" v-if="research" :data="research.table" />
+        <Table :max="10" v-if="getTable || research" :data="getTable.table || research.table" />
       </div>
     </section>
     <Footer />
@@ -73,7 +73,7 @@ export default {
   },
   data() {
     return {
-      research: []
+      research: null
     }
   },
   computed: {
@@ -83,7 +83,6 @@ export default {
   },
   async mounted () {
     this.research = await this.$store.dispatch('getDashboard')
-    console.log(this.research);
   }
 }
 

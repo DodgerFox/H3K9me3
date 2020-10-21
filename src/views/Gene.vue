@@ -15,7 +15,7 @@
                 </div>
                 <Links v-if="gene" :data="getData.links || gene.links" />
                 <Table :max="10" v-if="gene" :data="getData.table || gene.table" />
-                <Table class="double-top" :max="10" v-if="gene" :data="getData.other_peaks_table || gene.other_peaks_table" />
+                <Table class="double-top" :num='2' :max="10" v-if="gene" :data="getData.other_peaks_table || gene.other_peaks_table" />
             </div>
         </section>
         <Footer />
@@ -52,7 +52,7 @@ export default {
   },
   async mounted () {
     this.$store.dispatch('setLoader', true)
-    this.gene = await this.$store.dispatch('fetchGene', [this.$route.params.id, 1, 10])
+    this.gene = await this.$store.dispatch('fetchGene', [this.$route.params.id, 1, 10, 1, 10])
     this.$store.dispatch('setLoader', false)
   }
 }

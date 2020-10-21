@@ -213,6 +213,7 @@ p.text
 	left 0
 	bottom 50px
 	position absolute
+	pointer-events none
 	opacity 0.7
 
 	&__text
@@ -239,3 +240,33 @@ p.text
 		transform: translateY(0px)
 	}
 }
+
+::-webkit-scrollbar-button
+	background-image url('')
+	background-repeat no-repeat
+	width 5px
+	height 0px
+
+::-webkit-scrollbar-track
+	background-color #ecedee
+	-webkit-border-radius 50px
+	border-radius 50px
+
+
+::-webkit-scrollbar-thumb
+	-webkit-border-radius 50px
+	border-radius 50px
+	background-color #6dc0c8
+
+::-webkit-scrollbar-thumb:hover
+	background-color #56999f
+
+::-webkit-resizer
+	background-image url('')
+	background-repeat no-repeat
+	width 4px
+	height 0px
+
+
+::-webkit-scrollbar
+	width 4px
