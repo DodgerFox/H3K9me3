@@ -45,24 +45,30 @@ export default {
   },
   methods: {
     async download() {
+      this.$store.dispatch('setLoader', true)
       let query = `http://83.149.211.146:22180/lncrna/api/v1/download`;
-        let searchData = await this.$store.getters.getSearchData;
-        JSON.stringify(searchData)
-        try {
-          this.$store.dispatch('setLoader', true)
-          await axios
-          .post(query, searchData, {headers: {'Content-Type': 'application/json'}, timeout: 60000})
-          .then(response => {
-            window.open(response, '_blank')
-            this.$store.dispatch('setLoader', false)
-          })
-          .catch(error => {
-            this.$store.dispatch('setLoader', false)
-            console.log(error);
-          })
-        } catch (error) {
-          console.log(error);
-        }
+      let searchData = await this.$store.getters.getSearchData;
+      JSON.stringify(searchData)
+      axios.post(
+          query,
+          searchData,
+          {
+            responseType: 'blob',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/pdf'
+            }
+        })
+        .then(({ data }) => {
+          this.$store.dispatch('setLoader', false)
+          const downloadUrl = window.URL.createObjectURL(new Blob([data]));
+          const link = document.createElement('a');
+          link.href = downloadUrl;
+          link.setAttribute('download', 'Table.csv'); //any other extension
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+        });
       }
   },
   async mounted () {

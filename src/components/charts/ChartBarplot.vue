@@ -22,6 +22,11 @@ export default {
             legend: {
                 display: false
             },
+            plugins: {
+                datalabels: {
+                    display: false,
+                },
+},
             responsive: true,
             maintainAspectRatio: false,
             scales: {
@@ -57,34 +62,56 @@ export default {
         init() {
             this.chartdata = {
                 labels: [],
-                datasets: [],
-            };
-            let data = this.data;
-            this.chartdata.labels = this.labels
-            let colors = ["#31b0d9", "#00D688", "#FF1F40", "#54478C", "#F26D4C", "#2C699A", "#787878"]
-            data.forEach((element, index) => {
-                console.log(element);
-                this.chartdata.datasets.push({
+                datasets: [
+                    {
                     type: 'scatter',
                     label: 'Scatter',
-                    data: element,
+                    data: [{
+            "x": 1.54731865,
+            "y": "0.6252581"
+          },
+          {
+            "x": 1.53064353,
+            "y": "0.60509"
+          },
+          {
+            "x": 1.52027183,
+            "y": "0.61584634"
+          }],
                     xAxisID:'left-x-axis',
-                    borderColor: colors[index],
-                    backgroundColor: colors[index]
-                })
-                this.chartdata.datasets.push({
-                    type: 'bar',
-                    label: 'bar',
-                    data: [],
-                    xAxisID:'bar-x-axis',
-                    backgroundColor: 'red'
-                })
+                    borderColor: colors,
+                    backgroundColor: colors
+                }
+                ],
+            };
+            let data = this.data;
+            console.log(data, 'daatata');
+            this.chartdata.labels = this.labels
+            let colors = ['#ACDEE7', '#CCAACB', '#FFFFB5', '#FFCDB6', '#ECECEC', '#C7DBDA', '#FEFEFE', '#FDD7C2', '#818181']
+            data.forEach((element) => {
+                console.log(element);
+                // this.chartdata.datasets.push({
+                //     type: 'scatter',
+                //     label: 'Scatter',
+                //     data: element,
+                //     xAxisID:'left-x-axis',
+                //     borderColor: colors,
+                //     backgroundColor: colors
+                // })
+                // this.chartdata.datasets.push({
+                //     type: 'bar',
+                //     label: 'bar',
+                //     data: [],
+                //     xAxisID:'bar-x-axis',
+                //     backgroundColor: 'red'
+                // })
             });
             this.renderChart(this.chartdata, this.options)
         }
     },
     mounted () {
         this.init()
+        console.log(this.data);
         
     },
     watch: {
