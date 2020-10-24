@@ -49,7 +49,7 @@ export default {
       let query = `http://83.149.211.146:22180/lncrna/api/v1/download`;
       let searchData = await this.$store.getters.getSearchData;
       JSON.stringify(searchData)
-      axios.get(
+      axios.get(  
           query,
           searchData,
           {

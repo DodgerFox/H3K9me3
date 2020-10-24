@@ -93,7 +93,7 @@
                         </div>
                     </div>
                     <div class="clear" @click="lncrna = []" v-show="lncrna.length > 0">
-                        <p>Очистить</p>
+                        <p>Clear</p>
                     </div>
                 </div>
                 <div class="search-output" v-if="lncrna.length > 0">
@@ -133,7 +133,7 @@
                         </div>
                     </div>
                     <div class="clear" @click="genes = []" v-show="genes.length > 0">
-                        <p>Очистить</p>
+                        <p>Clear</p>
                     </div>
                 </div>
                 <div class="search-output" v-if="genes.length > 0">
@@ -177,7 +177,7 @@
                         </div>
                     </div>
                     <div class="clear" @click="coords = []" v-show="coords.length > 0">
-                        <p>Очистить</p>
+                        <p>Clear</p>
                     </div>
                 </div>
             </div>
