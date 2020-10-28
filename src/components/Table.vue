@@ -29,6 +29,9 @@
         <div class="block-nodata" v-if="!data">
           <p>No data</p>
         </div>
+        <div class="block-nodata" v-if="data.all_counts === 0">
+          <p>Nothing found</p>
+        </div>
     </div>
 </template>
 <script>
