@@ -31,7 +31,7 @@ export default {
         
         try {
           await axios
-          .post(query, searchData, {headers: {'Content-Type': 'application/json'}, timeout: 60000}, {timeout: 2000})
+          .post(query, searchData, {headers: {'Content-Type': 'application/json'}, timeout: 180000})
           .then(response => {
             console.log(response,'res');
             result = response.data

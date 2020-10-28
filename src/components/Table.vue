@@ -1,5 +1,6 @@
 <template>
     <div class="table-wrap">
+      <h4 v-if="title">{{title}}</h4>
         <table class="table">
           <tbody>
             <tr>
@@ -48,6 +49,10 @@ export default {
       type: Number,
       required: false,
       default: 1
+    },
+    title: {
+      type: String,
+      required: false
     }
   },
   data: () => {

@@ -3,7 +3,7 @@
         <Header />
         <section class="detail">
             <div class="wrap">
-                <h2 class="section-title">LnkRNA: {{$route.params.id}}</h2>
+                <h2 class="section-title">LncRNA: {{$route.params.id}}</h2>
                 <div class="block">
                   <div class="block-wrap" v-if="lncrna">
                       <h4>{{lncrna.chart.title}}</h4>
@@ -18,7 +18,7 @@
                   <ChartBarplot :data="barplot" :labels="lncrna.barplot.labels" />
                 </div>
                 <Links v-if="lncrna" :data="lncrna.links" />
-                <Table :max="10" v-if="lncrna" :data="getData.table || lncrna.table" />
+                <Table :max="10" title="Data by choosen lncRNA" v-if="lncrna" :data="getData.table || lncrna.table" />
             </div>
         </section>
         <Loader />

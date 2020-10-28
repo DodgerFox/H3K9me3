@@ -26,7 +26,7 @@ export default {
         let chartdata = {
             labels: [],
             datasets: [{
-                label: '# of Votes',
+                label: '',
                 data: [],
                 minBarLength: 0,
                 backgroundColor: [

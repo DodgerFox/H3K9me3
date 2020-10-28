@@ -4,9 +4,9 @@
         <section class="result">
             <div class="wrap">
                 <div class="result-header">
-                  <h4 v-if="getTable && results">{{ results.title || getTable.title}}</h4>
-                  <h4 v-if="!getTable && !results ">Nothing found, please try again</h4>
-                  <a @click="download" class="button violet download" v-if="getTable && results">
+                  <h4 v-if="(getTable && results) && getTable.table.all_counts > 0 && results.table.all_counts > 0">{{ results.title || getTable.title}}</h4>
+                  <h4 v-if="getTable.table.all_counts == 0 || results.table.all_counts == 0 || (!getTable && !results)">Nothing found, please try again</h4>
+                  <a @click="download" class="button violet download" v-if="getTable && results && getTable.table.all_counts > 0 && results.table.all_counts > 0">
                     <p>Download</p>
                   </a>
                 </div>
@@ -57,7 +57,8 @@ export default {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/pdf'
-            }
+            },
+            timeout: 1000 * 60 * 60 * 24 * 7
         })
         .then(({ data }) => {
           this.$store.dispatch('setLoader', false)

@@ -55,10 +55,6 @@
                     <input type="checkbox" id="histone10" v-model="histones.H4K20me1"/>
                     <label for="histone10">H4K20me1</label>
                 </div>
-                <div class="checkbox">
-                    <input type="checkbox" id="histone11" v-model="histones.Methylation"/>
-                    <label for="histone11">Methylation</label>
-                </div>
             </div>
         </div>
         <div class="search-block search-block_middle">
@@ -77,7 +73,7 @@
                         <input type="text" id="lncRNA">
                     </div> -->
                     <div class="input-add">
-                        <input type="text" id="lncRNA" placeholder="Add one by one" @keydown.enter.prevent="setElement('lncrna')" v-model="lncrnaInput">
+                        <input type="text" id="lncRNA" placeholder="Add one by one via 'Enter'" @keydown.enter.prevent="setElement('lncrna')" v-model="lncrnaInput">
                     </div>
                     <upload-button
                         title="Load file"
@@ -117,7 +113,7 @@
             <div class="search-wrap">
                 <div class="search-string">
                     <div class="input-add">
-                        <input type="text" id="Gene" placeholder="Add one by one" @keydown.enter.prevent="setElement('genes')" v-model="genesInput">
+                        <input type="text" id="Gene" placeholder="Add one by one via 'Enter'" @keydown.enter.prevent="setElement('genes')" v-model="genesInput">
                     </div>
                     <upload-button
                         title="Load file"
@@ -146,7 +142,7 @@
         </div>
         <div class="search-block search-block_middle">
             <div class="search-header">
-                <h4>Coords</h4>
+                <h4>Coordinates</h4>
                 <div class="info">
                     <div class="info__window">
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
@@ -184,7 +180,7 @@
         </div>
         <div class="search-block search-block_middle">
             <div class="search-header">
-                <h4>Corr threshold</h4>
+                <h4>Correlation threshold</h4>
                 <div class="info">
                     <div class="info__window">
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
@@ -212,7 +208,7 @@
             </div>
         </div>
         <div class="search-button">
-            <input class="button" type="submit" value="Search by choisen filters" />
+            <input class="button" type="submit" value="Search" />
         </div>
       </form>
     </section>
@@ -289,8 +285,7 @@ export default {
             H3K9ac: false,
             H3K9me3: false,
             H3K79me2: false,
-            H4K20me1: false,
-            Methylation: false,
+            H4K20me1: false
         }
         }
   },
@@ -366,15 +361,15 @@ export default {
     },
     async sendData () {
         let histones = [];
-        let access = false;
+        let modifChousen = false;
         for (const key in this.histones) {
             const element = this.histones[key];
             element ? (
                 histones.push(key),
-                access = true
+                modifChousen = true
             ) : '';
         }
-        if (access) {
+        if (modifChousen) {
 
             let searchData = {
                 hm: histones,
@@ -389,13 +384,13 @@ export default {
             this.$store.dispatch('setLoader', false)
             result ? this.$router.push('/result') : this.showWarning('Something went wrong');
         } else {
-            this.showWarning('Something went wrong')
+            this.showWarning('Сhoose some modifications and filters')
         }
     },
     showWarning(title) {
         title ? this.warning.title = title : '';
         this.warning.open = !this.warning.open
-        setTimeout(() => {this.warning.open = !this.warning.open}, 2000)
+        setTimeout(() => {this.warning.open = !this.warning.open}, 4000)
     }
   },
   computed: {

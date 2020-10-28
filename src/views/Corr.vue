@@ -14,7 +14,8 @@
                   </div>
                 </div>
                 <Links v-if="corr" :data="corr.links" />
-                <Table :max="10" v-if="getData || corr" :data="getData.table || corr.table" />
+                <Table class="table-wrap_long" :max="10" title="Data by choosen Correlation" v-if="getData || corr" :data="getData.table || corr.table" />
+                <Loader />
             </div>
         </section>
         <Footer />
@@ -25,6 +26,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Table from '@/components/Table';
 import Links from '@/components/Links';
+import Loader from '@/components/Loader';
 import ChartCombo from '@/components/charts/ChartCombo'
 
 export default {
@@ -34,6 +36,7 @@ export default {
     Table,
     Links,
     Footer,
+    Loader,
     ChartCombo
   },
   data() {
