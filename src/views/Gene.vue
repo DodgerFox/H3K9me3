@@ -9,12 +9,12 @@
                       <h4>{{gene.chart.title}}</h4>
                       <ChartPeaks :data="getData.chart || gene.chart" />
                   </div>
-                  <div class="block-none" v-else>
+                  <div class="block-none" v-if="!gene && !this.$store.getters.loader">
                       <h4>There is no data</h4>
                   </div>
                 </div>
                 <Links v-if="gene" :data="getData.links || gene.links" />
-                <Table :max="10" v-if="gene" :data="getData.table || gene.table" />
+                <Table title="Data by choosen lncRNA" :max="10" v-if="gene" :data="getData.table || gene.table" />
                 <Table class="double-top" :num='2' :max="10" v-if="gene" :data="getData.other_peaks_table || gene.other_peaks_table" />
             </div>
         </section>

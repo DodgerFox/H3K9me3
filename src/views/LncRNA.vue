@@ -9,7 +9,7 @@
                       <h4>{{lncrna.chart.title}}</h4>
                       <ChartPeaks :data="lncrna.chart" />
                   </div>
-                  <div class="block-none" v-else>
+                  <div class="block-none" v-if="!lncrna && !this.$store.getters.loader">
                       <h4>There is no data</h4>
                   </div>
                 </div>

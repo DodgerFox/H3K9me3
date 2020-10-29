@@ -273,8 +273,8 @@ export default {
         lncrnaInput: null,
         genesInput: null,
         coordsInput: null,
-        plus: true,
-        minus: null,
+        plus: false,
+        minus: false,
         histones: {
             H3K27ac: false,
             H3K27me3: false,
@@ -369,7 +369,7 @@ export default {
                 modifChousen = true
             ) : '';
         }
-        if (modifChousen) {
+        if (modifChousen && (this.plus || this.minus || this.coords.length > 0 || this.lncrna.length > 0 || this.genes.length > 0)) {
 
             let searchData = {
                 hm: histones,
@@ -383,7 +383,9 @@ export default {
             let result = await this.$store.dispatch('search', [searchData, 1, 10])
             this.$store.dispatch('setLoader', false)
             result ? this.$router.push('/result') : this.showWarning('Something went wrong');
-        } else {
+        } else if (modifChousen && (!this.plus || !this.minus || this.coords.length == 0 || this.lncrna.length == 0 || this.genes.length == 0)) {
+            this.showWarning('Сhoose some filters')
+        } else  {
             this.showWarning('Сhoose some modifications and filters')
         }
     },
