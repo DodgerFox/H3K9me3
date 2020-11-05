@@ -23,7 +23,6 @@ export default {
       },
       setGeneData(state, result) {
         state.geneData = result
-        console.log(result, 'geeData');
       }
     },
     actions: {
@@ -53,7 +52,6 @@ export default {
           .get(`http://83.149.211.146:22180/lncrna/api/v1/info/gene?gene=${gene}&page=${page}&page_count=${max}&other_page=${opage}&other_page_count=${omax}`)
           .then(response => {
             result = response.data
-            console.log(result);
             commit('setGene', result)
           })
           .catch(error => {
@@ -83,15 +81,12 @@ export default {
       },
       async fetchCorr({commit}, [params, page, max]) {
         let result;
-        console.log(params);
         let query = `http://83.149.211.146:22180/lncrna/api/v1/info/corr?peak_id=${params.peak}&lncrna=${params.lncrna}&hm=${params.hm}&page=${page}&page_count=${max}`;
-        console.log(query);
         try {
           await axios
           .get(query)
           .then(response => {
             result = response.data.response
-            console.log(result, 'ch resdwawd');
             commit('setCorr', result)
           })
           .catch(error => {

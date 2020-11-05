@@ -30,6 +30,11 @@ export default {
     bottom 0
     z-index 20
     pointer-events none
+    -webkit-touch-callout none
+    -webkit-user-select none
+    -moz-user-select none
+    -ms-user-select none
+    user-select none
 
     &__window
         border-radius 20px

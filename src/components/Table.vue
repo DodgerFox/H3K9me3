@@ -17,7 +17,7 @@
             </tr>
           </tbody>
         </table>
-        <div class="table-pagination" v-if="max <= data.all_counts && data">
+        <div class="table-pagination" v-if="paginationShow">
           <p class="table-pagination__text">{{max * page - max + 1}}-{{max * page > data.all_counts ? data.all_counts : max * page}} of {{ data.all_counts ? data.all_counts : 'many'}} items</p>
           <div class="table-pagination__item back" @click="changePage('back')">
             <img src="@/assets/images/icon_arrow.svg">
@@ -64,13 +64,22 @@ export default {
       if (direction === 'back') {
         this.page = this.page > 1 ? this.page - 1 : this.page
       } else {
-        this.page = this.page < this.data.all_counts / this.max ? this.page + 1 : this.page
+        this.page = this.page < this.data.all_counts / this.max || !this.data.all_counts ? this.page + 1 : this.page
       }
     }
   },
   computed: {
     getPage() {
       return this.page
+    },
+    paginationShow () {
+      let result = true;
+      if (this.data.all_counts && this.data.data.length >= this.max) {
+        result = this.max < this.data.all_counts && this.data
+      } else {
+        this.data.data && this.data.data.length !== this.max ? result = false : ''
+      }
+      return result
     }
   },
   watch: {

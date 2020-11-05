@@ -18,7 +18,6 @@ export default {
           .then(responce => {
             result = responce.data
             commit('setTableDashboard', result)
-            console.log(result);
           })
           .catch(error => {
             console.log(error);
