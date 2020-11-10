@@ -19,7 +19,7 @@
         </div>
     </section>
 
-    <section class="section">
+    <!-- <section class="section">
       <div class="wrap">
         <h2 class="section-title">How we did it?</h2>
         <p class="section-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
@@ -32,7 +32,7 @@
               <p>Search</p>
             </router-link>
           </div>
-          <!-- <div class="section-image" :style="{backgroundImage: 'url(' + require('@/assets/images/section-1.jpg') + ')'}"></div> -->
+          <div class="section-image" :style="{backgroundImage: 'url(' + require('@/assets/images/section-1.jpg') + ')'}"></div>
         </div>
         <div class="section-block">
           <div class="section-content">
@@ -43,10 +43,10 @@
               <p>Search</p>
             </router-link>
           </div>
-          <!-- <div class="section-image" :style="{ backgroundImage: 'url(~@/assets/images/section-1.jpg)' }"></div> -->
+          <div class="section-image" :style="{ backgroundImage: 'url(~@/assets/images/section-1.jpg)' }"></div>
         </div>
       </div>
-    </section>
+    </section> -->
     <section class="section research">
       <div class="wrap">
         <h2 class="section-title">Research results</h2>

@@ -9,8 +9,7 @@
                 <h4>Histone modifications</h4>
                 <div class="info">
                     <div class="info__window">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
+                        <p>Choose from one to ten histone modifications</p>
                     </div>
                 </div>
             </div>
@@ -59,11 +58,11 @@
         </div>
         <div class="search-block search-block_middle">
             <div class="search-header">
-                <h4>lncRNA</h4>
+                <h4>lncRNA/lncRNA ID</h4>
                 <div class="info">
                     <div class="info__window">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
+                        <p>Filter by lncRNAs that affect histone modifications selected above.</p>
+                        <p>Add ensembl ids or names of lncRNA one by one with Enter, or load file with lncRNAs in a column.</p>
                     </div>
                 </div>
             </div>
@@ -105,8 +104,8 @@
                 <h4>Gene/Gene ID</h4>
                 <div class="info">
                     <div class="info__window">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
+                        <p>Filter by genes that have (in the body or + 1000bp) the modifications selected above.</p>
+                        <p>Add gene ids or names one by one with Enter, or load file with genes in a column.</p>
                     </div>
                 </div>
             </div>
@@ -145,8 +144,8 @@
                 <h4>Coordinates</h4>
                 <div class="info">
                     <div class="info__window">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
+                        <p>Filter by genome loci.</p>
+                        <p>Add tab separated gene loci coords in bed format, each on a new line, or load bed file.</p>
                     </div>
                 </div>
             </div>
@@ -183,8 +182,8 @@
                 <h4>Correlation threshold</h4>
                 <div class="info">
                     <div class="info__window">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore placeat culpa perferendis error repellendus. Provident nam nisi repellendus aut adipisci ab, obcaecati incidunt ducimus esse tenetur nemo doloremque animi dolore.</p>
+                        <p>Filter by strength of interaction between histone modifications signal and lncRNA expression.</p>
+                        <p>Choose sign and thresholds of ChIP-Seq signal - lncRNA expression correlations.</p>
                     </div>
                 </div>
             </div>

@@ -9,7 +9,7 @@
                       <h4>{{ modification.chart.title || getData.chart.title }}</h4>
                       <ChartPeaks :data="modification.chart || getData.chart" />
                   </div>
-                  <div class="block-none" v-else>
+                  <div class="block-none" v-if="!modification && !this.$store.getters.loader">
                       <h4>There is no data</h4>
                   </div>
                 </div>
