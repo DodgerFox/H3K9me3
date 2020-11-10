@@ -9,7 +9,7 @@
                       <h4>{{corr.chart.title}}</h4>
                       <ChartCombo :data="getData.chart || corr.chart" />
                   </div>
-                  <div class="block-none" v-else>
+                  <div class="block-none" v-if="!getData && !this.$store.getters.loader">
                       <h4>There is no data</h4>
                   </div>
                 </div>

@@ -4,8 +4,8 @@
         <section class="result">
             <div class="wrap">
                 <div class="result-header">
-                  <h4 v-if="(getTable && results) && getTable.table.all_counts > 0 && results.table.all_counts > 0">{{ results.title || getTable.title}}</h4>
-                  <h4 v-if="getTable.table.all_counts == 0 || results.table.all_counts == 0 || (!getTable && !results)">Nothing found, please try again</h4>
+                  <h4 v-if="(getTable || results) && getTable.table.all_counts > 0 || results.table.all_counts > 0">{{ results.title || getTable.title}}</h4>
+                  <h4 v-else>Nothing found, please try again</h4>
                   <a @click="download" class="button violet download" v-if="getTable && results && getTable.table.all_counts > 0 && results.table.all_counts > 0">
                     <p>Download</p>
                   </a>
@@ -75,6 +75,7 @@ export default {
   async mounted () {
     this.$store.dispatch('setLoader', true)
     this.results = await this.$store.getters.getResults
+    console.log(this.results);
     this.$store.dispatch('setLoader', false)
   }
 }
