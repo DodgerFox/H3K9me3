@@ -3,7 +3,7 @@
     <Header />
     <section class="welcome">
       <div class="wrap">
-        <img src="@/assets/images/welcome.jpg" class="welcome-image">
+        <!-- <img src="@/assets/images/welcome.jpg" class="welcome-image"> -->
         <div class="welcome-content">
           <h2>Welcome to website of scientific experiment</h2>
           <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
