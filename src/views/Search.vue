@@ -74,20 +74,19 @@
                     <div class="input-add">
                         <input type="text" id="lncRNA" placeholder="Add one by one via 'Enter'" @keydown.enter.prevent="setElement('lncrna')" v-model="lncrnaInput">
                     </div>
-                    <upload-button
-                        title="Load file"
-                        block
-                        name="gene"
+                    <input
+                        type="file"
                         class="button violet"
-                        id="gene"
-                        @file-update="updateFile"
+                        id="lncrna-file"
+                        accept=".txt"
+                        @change="onLncrnaFile"
                     />
                     <div class="info black">
                         <div class="info__window">
                             <p>File should be in txt format, and max 2mb size.</p>
                         </div>
                     </div>
-                    <div class="clear" @click="lncrna = []" v-show="lncrna.length > 0">
+                    <div class="clear" @click="clearList('lncrna')" v-show="lncrna.length > 0">
                         <p>Clear</p>
                     </div>
                 </div>
@@ -95,7 +94,7 @@
                     <div class="search-output__item" @click="lncrna.splice(index, 1)" v-for="(rna, index) in lncrna" :key="index" :rna="rna">{{ rna }}</div>
                 </div>
                 <div class="button button_show" v-if="lncrna.length > 2" @click="showAll('lncrna')">
-                    <p>Show all {{ lncrna.lenght }}</p>
+                    <p>Show all {{ lncrna.length }}</p>
                 </div>
             </div>
         </div>
@@ -114,20 +113,19 @@
                     <div class="input-add">
                         <input type="text" id="Gene" placeholder="Add one by one via 'Enter'" @keydown.enter.prevent="setElement('genes')" v-model="genesInput">
                     </div>
-                    <upload-button
-                        title="Load file"
-                        block
-                        name="gene"
+                    <input
+                        type="file"
                         class="button violet"
-                        id="gene"
-                        @file-update="genesFile"
+                        id="genes-file"
+                        accept=".txt"
+                        @change="onGenesFile"
                     />
                     <div class="info black">
                         <div class="info__window">
                             <p>File should be in txt format, and max 2mb size.</p>
                         </div>
                     </div>
-                    <div class="clear" @click="genes = []" v-show="genes.length > 0">
+                    <div class="clear" @click="clearList('genes')" v-show="genes.length > 0">
                         <p>Clear</p>
                     </div>
                 </div>
@@ -135,7 +133,7 @@
                     <div class="search-output__item" @click="genes.splice(index, 1)" v-for="(rna, index) in genes" :key="index" :rna="rna">{{ rna }}</div>
                 </div>
                 <div class="button button_show" v-if="genes.length > 2" @click="showAll('genes')">
-                    <p>Show all {{ genes.lenght }}</p>
+                    <p>Show all {{ genes.length }}</p>
                 </div>
             </div>
         </div>
@@ -155,23 +153,21 @@
                 </div>
                 <div class="search-string">
                     <div class="button" v-if="coords.length > 2" @click="showAll('coords')">
-                        <p>Show all {{ coords.lenght }}</p>
+                        <p>Show all {{ coords.length }}</p>
                     </div>
-                    <upload-button
-                        title="Load file"
-                        block
-                        ripped
-                        name="coords"
+                    <input
+                        type="file"
                         class="button violet"
-                        id="coords"
-                        @file-update="coordsFile"
+                        id="coords-file"
+                        accept=".txt"
+                        @change="onCoordsFile"
                     />
                     <div class="info black">
                         <div class="info__window">
                             <p>File should be in txt format, and max 2mb size.</p>
                         </div>
                     </div>
-                    <div class="clear" @click="coords = []" v-show="coords.length > 0">
+                    <div class="clear" @click="clearList('coords')" v-show="coords.length > 0">
                         <p>Clear</p>
                     </div>
                 </div>
@@ -236,169 +232,181 @@
   </main>
 </template>
 
-<script>
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import Slider from '@/components/ui/Slider';
-import Loader from '@/components/Loader';
-import Notification from '@/components/Notification';
-import UploadButton from 'vuetify-upload-button'
+<script setup>
+import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import Slider from '@/components/ui/Slider'
+import Loader from '@/components/Loader'
+import Notification from '@/components/Notification'
 
-export default {
-  name: 'dashboard',
-  components: {
-    Header,
-    Footer,
-    Slider,
-    Loader,
-    Notification,
-    UploadButton
-  },
-  data() {
-    return {
-        modal: {
-            open: false,
-            data: null
-        },
-        warning: {
-            open: false,
-            title: 'Choose modification'
-        },
-        lncrna: [],
-        genes: [],
-        coords: [],
-        mrange: [],
-        prange: [],
-        lncrnaInput: null,
-        genesInput: null,
-        coordsInput: null,
-        plus: false,
-        minus: false,
-        histones: {
-            H3K27ac: false,
-            H3K27me3: false,
-            H3K36me3: false,
-            H3K4me1: false,
-            H3K4me2: false,
-            H3K4me3: false,
-            H3K9ac: false,
-            H3K9me3: false,
-            H3K79me2: false,
-            H4K20me1: false
-        }
-        }
-  },
-  methods: {
-    async changeCoords () {
-        this.coords = []
-        let strings = this.coordsInput.split('\n')
-        await strings.forEach(element => {
-            this.coords.push(element.split('\t'))
-        })
-    },
-    setTab () {
-        let textarea = this.$refs.ta
-        let cursorPosition = textarea.selectionStart;
-        let str = this.coordsInput;
-        let newStr = '';
-        for (const key in str) {
-            key == cursorPosition - 1 ? newStr = newStr + str[key] + '\t' : newStr = newStr + str[key];
-        }
-        this.coordsInput = newStr;
-    },
-    showAll (name) {
-        this.modal.open = true
-        this.modal.data = this[name]
-        this.modal.title = name;
-    },
-    genesFile(file) {
-        const reader = new FileReader()
-        reader.onload = e => {
-            let dataArray = e.target.result.split('\n')
-            dataArray.forEach(element => {
-                this.genes.push(element)
-            });
-        }
+const store = useStore()
+const router = useRouter()
+const ta = ref(null)
 
-        reader.readAsText(file)
-    },
-    updateFile(file) {
-        const reader = new FileReader()
-        reader.onload = e => {
-            let dataArray = e.target.result.split('\n')
-            dataArray.forEach(element => {
-                this.lncrna.push(element)
-            });
-        }
+const modal = reactive({
+    open: false,
+    data: null,
+    title: null
+})
 
-        reader.readAsText(file)
-    },
-    coordsFile(file) {
-        const reader = new FileReader()
-        reader.onload = e => {
-            let strings = e.target.result.split('\n');
-            this.coords = []
-            strings.forEach(element => {
-                this.coords.push(element.split('\t'))
-            })
-            this.showWarning('Coords was uploaded!')
-            this.coordsInput = e.target.result
-        }
+const warning = reactive({
+    open: false,
+    title: 'Choose modification'
+})
 
-        reader.readAsText(file)
-    },
-    setElement (name) {
-        if (name === 'coords') {
-            let strings = this[name + 'Input'].split('\n');
-            strings.forEach(element => {
-                this[name].push(element.split('\t'))
-            })
-        } else {
-            this[name].push(this[name + 'Input'])
-        }
-        this[name + 'Input'] = null
-    },
-    async sendData () {
-        let histones = [];
-        let modifChousen = false;
-        for (const key in this.histones) {
-            const element = this.histones[key];
-            element ? (
-                histones.push(key),
-                modifChousen = true
-            ) : '';
-        }
-        if (modifChousen && (this.plus || this.minus || this.coords.length > 0 || this.lncrna.length > 0 || this.genes.length > 0)) {
+const lncrna = ref([])
+const genes = ref([])
+const coords = ref([])
+const lncrnaInput = ref('')
+const genesInput = ref('')
+const coordsInput = ref('')
+const plus = ref(false)
+const minus = ref(false)
 
-            let searchData = {
-                hm: histones,
-                lncrna: this.lncrna,
-                genes: this.genes,
-                coords: this.coords,
-                thresholds_choisen: [this.plus, this.minus]
-            };
-            this.$store.dispatch('setLoader', true)
-            await this.$store.dispatch('setSearch', searchData)
-            let result = await this.$store.dispatch('search', [searchData, 1, 10])
-            this.$store.dispatch('setLoader', false)
-            result ? this.$router.push('/result') : this.showWarning('Something went wrong');
-        } else if (modifChousen && (!this.plus || !this.minus || this.coords.length == 0 || this.lncrna.length == 0 || this.genes.length == 0)) {
-            this.showWarning('Сhoose some filters')
-        } else  {
-            this.showWarning('Сhoose some modifications and filters')
-        }
-    },
-    showWarning(title) {
-        title ? this.warning.title = title : '';
-        this.warning.open = !this.warning.open
-        setTimeout(() => {this.warning.open = !this.warning.open}, 4000)
-    }
-  },
-  computed: {
-    getRanges () {
-      return this.$store.getters.getRanges
-    }
-  }
+const histones = reactive({
+    H3K27ac: false,
+    H3K27me3: false,
+    H3K36me3: false,
+    H3K4me1: false,
+    H3K4me2: false,
+    H3K4me3: false,
+    H3K9ac: false,
+    H3K9me3: false,
+    H3K79me2: false,
+    H4K20me1: false
+})
+
+const listByName = (name) => ({
+    lncrna,
+    genes,
+    coords
+})[name]
+
+const changeCoords = () => {
+    coords.value = coordsInput.value
+        .split('\n')
+        .filter((item) => item.trim().length > 0)
+        .map((item) => item.split('\t'))
 }
 
+const setTab = () => {
+    if (!ta.value) return
+    const cursorPosition = ta.value.selectionStart
+    const str = coordsInput.value
+    let newStr = ''
+    for (const key in str) {
+        newStr = Number(key) === cursorPosition - 1 ? newStr + str[key] + '\t' : newStr + str[key]
+    }
+    coordsInput.value = newStr
+}
+
+const showAll = (name) => {
+    modal.open = true
+    modal.data = listByName(name).value
+    modal.title = name
+}
+
+const clearList = (name) => {
+    listByName(name).value = []
+}
+
+const readFileList = (file, target) => {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+        const dataArray = e.target.result.split('\n').filter((item) => item.trim().length > 0)
+        dataArray.forEach((element) => {
+            target.value.push(element)
+        })
+    }
+    reader.readAsText(file)
+}
+
+const readCoordsFile = (file) => {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+        const strings = e.target.result.split('\n').filter((item) => item.trim().length > 0)
+        coords.value = strings.map((element) => element.split('\t'))
+        showWarning('Coords was uploaded!')
+        coordsInput.value = e.target.result
+    }
+
+    reader.readAsText(file)
+}
+
+const onLncrnaFile = (event) => {
+    const file = event.target.files?.[0]
+    if (file) readFileList(file, lncrna)
+    event.target.value = ''
+}
+
+const onGenesFile = (event) => {
+    const file = event.target.files?.[0]
+    if (file) readFileList(file, genes)
+    event.target.value = ''
+}
+
+const onCoordsFile = (event) => {
+    const file = event.target.files?.[0]
+    if (file) readCoordsFile(file)
+    event.target.value = ''
+}
+
+const setElement = (name) => {
+    if (name === 'coords') {
+        const strings = coordsInput.value.split('\n').filter((item) => item.trim().length > 0)
+        strings.forEach((element) => {
+            coords.value.push(element.split('\t'))
+        })
+    } else {
+        const target = listByName(name)
+        const value = name === 'lncrna' ? lncrnaInput.value : genesInput.value
+        if (value) target.value.push(value)
+    }
+
+    if (name === 'lncrna') lncrnaInput.value = ''
+    if (name === 'genes') genesInput.value = ''
+    if (name === 'coords') coordsInput.value = ''
+}
+
+const sendData = async () => {
+    const selectedHistones = []
+    let modifChosen = false
+    for (const key in histones) {
+        if (histones[key]) {
+            selectedHistones.push(key)
+            modifChosen = true
+        }
+    }
+
+    if (modifChosen && (plus.value || minus.value || coords.value.length > 0 || lncrna.value.length > 0 || genes.value.length > 0)) {
+        const searchData = {
+            hm: selectedHistones,
+            lncrna: lncrna.value,
+            genes: genes.value,
+            coords: coords.value,
+            thresholds_choisen: [plus.value, minus.value]
+        }
+
+        store.dispatch('setLoader', true)
+        await store.dispatch('setSearch', searchData)
+        const result = await store.dispatch('search', [searchData, 1, 10])
+        store.dispatch('setLoader', false)
+        result ? router.push('/result') : showWarning('Something went wrong')
+    } else if (modifChosen && (!plus.value || !minus.value || coords.value.length === 0 || lncrna.value.length === 0 || genes.value.length === 0)) {
+        showWarning('Сhoose some filters')
+    } else {
+        showWarning('Сhoose some modifications and filters')
+    }
+}
+
+const showWarning = (title) => {
+    if (title) warning.title = title
+    warning.open = !warning.open
+    setTimeout(() => {
+        warning.open = !warning.open
+    }, 4000)
+}
 </script>

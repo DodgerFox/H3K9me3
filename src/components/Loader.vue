@@ -7,15 +7,12 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: 'Loader',
-    computed: {
-        getState() {
-            return this.$store.getters.loader
-        }
-    }
-}
+<script setup>
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+
+const store = useStore()
+const getState = computed(() => store.getters.loader)
 </script>
 
 <style lang="stylus">

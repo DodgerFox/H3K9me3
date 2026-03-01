@@ -6,14 +6,11 @@
         </a>
     </div>
 </template>
-<script>
-export default {
-    name: 'link',
-    props: {
-        data: {
-            type: Array,
-            required: false
-        }
+<script setup>
+defineProps({
+    data: {
+        type: Array,
+        required: false
     }
-}
+})
 </script>

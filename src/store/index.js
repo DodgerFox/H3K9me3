@@ -6,14 +6,10 @@ import info from './modules/info'
 import opens from './modules/opens'
 
 export default createStore({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  getters: {
-  },
+  state: {},
+  mutations: {},
+  actions: {},
+  getters: {},
   modules: {
     dashboard,
     search,

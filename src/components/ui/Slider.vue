@@ -1,51 +1,58 @@
 <template>
-    <div class="slider" :data-name="name"></div>
+  <div ref="sliderEl" class="slider" :data-name="name"></div>
 </template>
 
-<script>
+<script setup>
+import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { useStore } from 'vuex'
 import nouislider from 'nouislider'
 import wnumb from 'wnumb'
-import 'nouislider/distribute/nouislider.css';
+import 'nouislider/distribute/nouislider.css'
 
-export default {
-  props: {
-    name: {
-      type: String,
-      default: null
-    }
-  },
-  data: function () {
-    return {
-      instance: undefined
-    }
-  },
-  mounted: function () {
-    var sliders = document.getElementsByClassName('slider');
-    [].slice.call(sliders).forEach(slider => {
-
-        let name = slider.getAttribute('data-name');
-        nouislider.create(slider, {
-            range: {
-                'min': name === 'minus' ? -1 : 0,
-                'max': name === 'minus' ? 0 : 1
-            },
-            start: [name === 'minus' ? -0.8 : 0.1, name === 'minus' ? -0.1 : 0.8],
-            margin: 0.1,
-            connect: true,
-            tooltips: true,
-            format: wnumb({
-                decimals: 2
-            }),
-        });
-        slider.noUiSlider.on('change', async () => {
-          let val = await slider.noUiSlider.get();
-          this.$store.dispatch('setRange', {name: slider.getAttribute('data-name'),val: val})
-        });
-
-        this.$store.dispatch('setRange', {name: slider.getAttribute('data-name'),val: slider.noUiSlider.get()})
-    });
+const props = defineProps({
+  name: {
+    type: String,
+    default: null
   }
+})
+
+const sliderEl = ref(null)
+const store = useStore()
+let sliderInstance = null
+
+const buildSlider = () => {
+  if (!sliderEl.value) return
+  const isMinus = props.name === 'minus'
+
+  sliderInstance = nouislider.create(sliderEl.value, {
+    range: {
+      min: isMinus ? -1 : 0,
+      max: isMinus ? 0 : 1
+    },
+    start: [isMinus ? -0.8 : 0.1, isMinus ? -0.1 : 0.8],
+    margin: 0.1,
+    connect: true,
+    tooltips: true,
+    format: wnumb({
+      decimals: 2
+    })
+  })
+
+  sliderInstance.on('change', async () => {
+    const val = await sliderInstance.get()
+    store.dispatch('setRange', { name: props.name, val })
+  })
+
+  store.dispatch('setRange', { name: props.name, val: sliderInstance.get() })
 }
+
+onMounted(buildSlider)
+onBeforeUnmount(() => {
+  if (sliderInstance) {
+    sliderInstance.destroy()
+    sliderInstance = null
+  }
+})
 </script>
 
 <style>

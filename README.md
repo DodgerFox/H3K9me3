@@ -1,4 +1,4 @@
-# ww-vue
+# H3K9me3 (Vue 3 + Composition API)
 
 ## Project setup
 ```
@@ -19,6 +19,12 @@ npm run build
 ```
 npm run lint
 ```
+
+### Технологии
+- Vue 3 + Composition API
+- Vue Router 4
+- Vuex 4
+- vue-chartjs 5 / Chart.js 4
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

@@ -6,8 +6,12 @@
             </a>
             <nav class="navigation">
                 <ul class="navigation-list">
-                    <router-link tag="li" class="navigation-list__item" exact-active-class="active" to="/">Dashboard</router-link>
-                    <router-link tag="li" class="navigation-list__item" exact-active-class="active" to="/search">Search</router-link>
+                    <li class="navigation-list__item">
+                        <RouterLink to="/" active-class="active" exact-active-class="active">Dashboard</RouterLink>
+                    </li>
+                    <li class="navigation-list__item">
+                        <RouterLink to="/search" active-class="active" exact-active-class="active">Search</RouterLink>
+                    </li>
                     <!-- <router-link tag="li" class="navigation-list__item" exact-active-class="active" to="/help">Help</router-link> -->
                 </ul>
             </nav>

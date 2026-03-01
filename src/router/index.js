@@ -1,66 +1,63 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-// import axios from 'axios'
-// import firebase from 'firebase/app'
-
-Vue.use(VueRouter)
+import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
     path: '/',
     name: 'dashboard',
-    component: () => import('@/views/Dashboard')
+    component: () => import('@/views/Dashboard.vue')
   },
   {
     path: '/search',
     name: 'search',
-    component: () => import('@/views/Search')
+    component: () => import('@/views/Search.vue')
   },
   {
     path: '/help',
     name: 'help',
-    component: () => import('@/views/Help')
+    component: () => import('@/views/Help.vue')
   },
   {
     path: '/result',
     name: 'result',
-    component: () => import('@/views/Result')
+    component: () => import('@/views/Result.vue')
   },
   {
     path: '/info/histone/:id',
     name: 'histone',
-    component: () => import('@/views/Histone')
+    component: () => import('@/views/Histone.vue')
   },
   {
     path: '/info/lncrna/:id',
     name: 'lncrna',
-    component: () => import('@/views/LncRNA')
+    component: () => import('@/views/LncRNA.vue')
   },
   {
     path: '/info/gene/:id',
     name: 'gene',
-    component: () => import('@/views/Gene')
+    component: () => import('@/views/Gene.vue')
   },
   {
     path: '/info/corr',
-    name: 'Corr',
-    component: () => import('@/views/Corr')
+    name: 'corr',
+    component: () => import('@/views/Corr.vue')
   },
   { 
     path: '/404', 
     name: '404', 
-    component: () => import('@/views/Wrong'), 
+    component: () => import('@/views/Wrong.vue')
   }, 
   { 
-    path: '*', 
-    redirect: '/404' 
+    path: '/:pathMatch(.*)*',
+    redirect: '/404'
   }
 ]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes,
+  scrollBehavior() {
+    return { top: 0 }
+  }
 })
 
 

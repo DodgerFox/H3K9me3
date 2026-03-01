@@ -8,9 +8,9 @@
           <h2>Welcome to website of scientific experiment</h2>
           <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           <p class="text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <router-link tag="div" class="button orange" to="/search">
+          <RouterLink class="button orange" to="/search">
             <p>Dashboard</p>
-          </router-link>
+          </RouterLink>
         </div>
       </div>
         <div class="scroll-down">
@@ -52,38 +52,25 @@
         <h2 class="section-title">Research results</h2>
         <p class="section-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
 
-        <Table :max="11" v-if="getTable || research" :data="getTable.table || research.table" />
+  <Table :max="11" v-if="getTable || research" :data="getTable?.table || research?.table" />
       </div>
     </section>
     <Footer />
   </main>
 </template>
 
-<script>
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import Table from '@/components/Table';
+<script setup>
+import { computed, onMounted, ref } from 'vue'
+import { useStore } from 'vuex'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import Table from '@/components/Table'
 
-export default {
-  name: 'dashboard',
-  components: {
-    Header,
-    Table,
-    Footer
-  },
-  data() {
-    return {
-      research: null
-    }
-  },
-  computed: {
-    getTable () {
-      return this.$store.getters.getDashboardTable
-    }
-  },
-  async mounted () {
-    this.research = await this.$store.dispatch('getDashboard')
-  }
-}
+const store = useStore()
+const research = ref(null)
+const getTable = computed(() => store.getters.getDashboardTable)
 
+onMounted(async () => {
+  research.value = await store.dispatch('getDashboard')
+})
 </script>

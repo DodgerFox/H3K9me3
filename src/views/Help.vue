@@ -43,26 +43,14 @@
   </main>
 </template>
 
-<script>
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+<script setup>
+import { ref } from 'vue'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
-export default {
-  name: 'dashboard',
-  components: {
-    Header,
-    Footer,
-  },
-  data() {
-    return {
-      active: null,
-    }
-  },
-  methods: {
-      setTab(number) {
-          this.active = this.active === number ? null : number;
-      }
-  }
+const active = ref(null)
+
+const setTab = (number) => {
+  active.value = active.value === number ? null : number
 }
-
 </script>
